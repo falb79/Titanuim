@@ -1,0 +1,130 @@
+/* =====  css/exercises.css — خاص بصفحة التمارين فقط  ===== */
+/* الألوان والمتغيرات (--orange وغيرها) تأتي من style.css */
+
+.ex-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-block-start: 24px;
+}
+
+.ex-tabs[hidden] { display: none; }
+
+.ex-tabs button {
+  min-height: 44px;
+  padding-inline: 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ex-tabs button:hover { background: var(--surface-2); }
+
+.ex-tabs button[aria-selected="true"] {
+  background: var(--orange-deep);
+  border-color: var(--orange-deep);
+  color: #fff;
+}
+
+.ex-status { margin-block-start: 24px; }
+
+.ex-group { margin-block-start: 32px; }
+
+.ex-group h2 {
+  margin: 0 0 14px;
+  padding-inline-start: 12px;
+  border-inline-start: 4px solid var(--orange);
+  font-size: 1.2rem;
+  line-height: 1.4;
+  color: var(--text-strong);
+}
+
+.ex-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+}
+
+.ex-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.ex-name {
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--text-strong);
+}
+
+.ex-name-alt {
+  display: block;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.ex-watch {
+  align-self: flex-start;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--orange-deep);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.ex-watch:hover { background: var(--orange-hover); }
+
+/* ---------- شاشة القفل (لغير المسجّل) ---------- */
+.ex-lock {
+  max-width: 520px;
+  margin: 32px auto 0;
+  padding: 40px 24px 36px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.ex-lock[hidden] { display: none; }
+
+.ex-lock-icon { margin-block-end: 8px; }
+.ex-lock-icon .lock-ring    { fill: var(--surface-2); stroke: var(--line); }
+.ex-lock-icon .lock-shackle { stroke: var(--orange); }
+.ex-lock-icon .lock-body    { fill: var(--orange); }
+.ex-lock-icon .lock-keyhole { fill: var(--surface); }
+
+.ex-lock h2 {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+  color: var(--text-strong);
+}
+
+.ex-lock p {
+  margin-inline: auto;
+  margin-block-end: 4px;
+}
+
+.ex-lock .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-width: 200px;
+  padding-inline: 32px;
+  text-decoration: none;
+}

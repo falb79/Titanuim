@@ -10,17 +10,61 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+
 </head>
 <body data-page="login">
   <div id="site-header"></div>
 
-  <main>
+  <main class="auth-main">
     <h1 data-i18n="login.title">تسجيل الدخول</h1>
-    <p data-i18n="login.text">نموذج الدخول سيُضاف في الخطوة القادمة.</p>
+    <p data-i18n="login.text">خاص بمشتركي النادي.</p>
+
+    <div class="auth-card">
+      <div class="auth-tabs" role="tablist">
+        <button type="button" role="tab" id="tab-login" aria-selected="true"
+                aria-controls="panel-login" data-i18n="login.tabLogin">دخول</button>
+        <button type="button" role="tab" id="tab-signup" aria-selected="false"
+                aria-controls="panel-signup" data-i18n="login.tabSignup">حساب جديد</button>
+      </div>
+
+      <p id="form-msg" class="form-msg" aria-live="polite" hidden></p>
+
+      <!-- الدخول -->
+      <form id="panel-login" role="tabpanel" aria-labelledby="tab-login" novalidate>
+        <label for="login-email" data-i18n="field.email">البريد الإلكتروني</label>
+        <input id="login-email" type="email" autocomplete="email" dir="ltr" required>
+
+        <label for="login-password" data-i18n="field.password">كلمة المرور</label>
+        <input id="login-password" type="password" autocomplete="current-password" dir="ltr" required>
+
+        <button type="submit" class="btn-primary" data-i18n="login.submit">دخول</button>
+      </form>
+
+      <!-- حساب جديد -->
+      <form id="panel-signup" role="tabpanel" aria-labelledby="tab-signup" novalidate hidden>
+        <label for="signup-name" data-i18n="field.name">الاسم المستعار</label>
+        <input id="signup-name" type="text" autocomplete="nickname" maxlength="30" required>
+        <p class="field-hint" data-i18n="field.nameHint">يظهر في لوحة الترتيب بدلاً من اسمك الحقيقي</p>
+
+        <label for="signup-email" data-i18n="field.email">البريد الإلكتروني</label>
+        <input id="signup-email" type="email" autocomplete="email" dir="ltr" required>
+
+        <label for="signup-password" data-i18n="field.password">كلمة المرور</label>
+        <input id="signup-password" type="password" autocomplete="new-password" dir="ltr" minlength="8" required>
+        <p class="field-hint" data-i18n="field.passwordHint">ثمانية أحرف على الأقل</p>
+
+        <button type="submit" class="btn-primary" data-i18n="signup.submit">إنشاء الحساب</button>
+      </form>
+    </div>
   </main>
 
   <div id="site-footer"></div>
 
+  <script src="js/vendor/supabase.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
   <script src="js/layout.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/login.js" defer></script>
 </body>
 </html>

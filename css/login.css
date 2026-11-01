@@ -1,0 +1,89 @@
+/* =====  css/login.css — خاص بصفحة الدخول فقط  ===== */
+/* الألوان والمتغيرات (--orange وغيرها) تأتي من style.css */
+
+.auth-main { max-width: 480px; }
+
+.auth-card {
+  margin-block-start: 24px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-block-end: 20px;
+  padding: 4px;
+  background: var(--bg);
+  border-radius: 10px;
+}
+
+.auth-tabs button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-tabs button[aria-selected="true"] {
+  background: var(--surface-2);
+  color: var(--text-strong);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.auth-card label {
+  display: block;
+  margin-block: 14px 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.auth-card input {
+  width: 100%;
+  min-height: 48px;
+  padding-inline: 12px;
+  border: 1px solid var(--field-border);
+  border-radius: 8px;
+  background: var(--field-bg);
+  color: var(--text-strong);
+  font: inherit;
+}
+
+.auth-card input:focus-visible {
+  outline: 3px solid var(--orange);
+  outline-offset: 1px;
+  border-color: var(--orange);
+}
+
+/* تعبئة المتصفح التلقائية تخلي الحقل أبيض أو أصفر، نرجعه داكن */
+.auth-card input:-webkit-autofill {
+  -webkit-text-fill-color: var(--text-strong);
+  box-shadow: 0 0 0 1000px var(--field-bg) inset;
+  caret-color: var(--text-strong);
+}
+
+.field-hint {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.form-msg {
+  margin: 0 0 4px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.form-msg[hidden],
+.auth-card form[hidden] { display: none; }
+
+.form-msg.error   { background: #3d1a13; color: #ffb9a6; }
+.form-msg.success { background: #12301f; color: #9be4b5; }

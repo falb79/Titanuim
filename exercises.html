@@ -10,17 +10,48 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/exercises.css">
 </head>
 <body data-page="exercises">
   <div id="site-header"></div>
 
   <main>
     <h1 data-i18n="exercises.title">التمارين</h1>
-    <p data-i18n="exercises.text">هنا تظهر التمارين للأعضاء بعد تسجيل الدخول.</p>
+    <p id="ex-intro" data-i18n="exercises.text">اختر القسم، وشاهد شرح كل تمرين.</p>
+
+    <!-- لا يوجد أي تمرين داخل هذا الملف. كل المحتوى يُجلب من Supabase بعد تسجيل الدخول. -->
+    <div class="ex-tabs" id="ex-tabs" role="tablist" hidden>
+      <button type="button" role="tab" data-section="upper" aria-selected="true" data-i18n="ex.tabUpper">الجزء العلوي</button>
+      <button type="button" role="tab" data-section="lower" aria-selected="false" data-i18n="ex.tabLower">الجزء السفلي</button>
+      <button type="button" role="tab" data-section="stretch" aria-selected="false" data-i18n="ex.tabStretch">الإطالات</button>
+    </div>
+
+    <p class="ex-status" id="ex-status" aria-live="polite" data-i18n="ex.loading">جارٍ تحميل التمارين…</p>
+    <button type="button" class="btn-secondary" id="ex-retry" data-i18n="ex.retry" hidden>إعادة المحاولة</button>
+
+    <div id="ex-content" role="tabpanel"></div>
+
+    <!-- شاشة القفل: تظهر لغير المسجّل فقط. لا يوجد فيها أي محتوى حصري. -->
+    <section class="ex-lock" id="ex-lock" hidden>
+      <svg class="ex-lock-icon" viewBox="0 0 64 64" width="84" height="84" aria-hidden="true" focusable="false">
+        <circle class="lock-ring" cx="32" cy="32" r="30" stroke-width="2"/>
+        <path class="lock-shackle" d="M24.5 30v-5.5a7.5 7.5 0 0 1 15 0V30" fill="none" stroke-width="3.5" stroke-linecap="round"/>
+        <rect class="lock-body" x="19" y="29" width="26" height="19" rx="4.5"/>
+        <circle class="lock-keyhole" cx="32" cy="37.5" r="2.6"/>
+        <rect class="lock-keyhole" x="30.8" y="38" width="2.4" height="5" rx="1.2"/>
+      </svg>
+      <h2 data-i18n="ex.lockedTitle">المحتوى حصري للأعضاء</h2>
+      <p data-i18n="ex.lockedText">تسجيل الدخول مطلوب لتصفح مكتبة التمارين.</p>
+      <a class="btn-primary" href="login.html?next=exercises.html" data-i18n="nav.login">تسجيل الدخول</a>
+    </section>
   </main>
 
   <div id="site-footer"></div>
 
+  <script src="js/vendor/supabase.js" defer></script>
+  <script src="js/supabaseClient.js" defer></script>
   <script src="js/layout.js" defer></script>
+  <script src="js/auth.js" defer></script>
+  <script src="js/exercises.js" defer></script>
 </body>
 </html>
