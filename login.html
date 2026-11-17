@@ -6,12 +6,12 @@
   <title>تسجيل الدخول | تيتانيوم للياقة</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <script src="js/i18n.js"></script>
+  <script src="js/Tr_login.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/login.css">
-
+  <link rel="stylesheet" href="css/login.css">
 </head>
 <body data-page="login">
   <div id="site-header"></div>
@@ -24,37 +24,48 @@
       <div class="auth-tabs" role="tablist">
         <button type="button" role="tab" id="tab-login" aria-selected="true"
                 aria-controls="panel-login" data-i18n="login.tabLogin">دخول</button>
-        <button type="button" role="tab" id="tab-signup" aria-selected="false"
-                aria-controls="panel-signup" data-i18n="login.tabSignup">حساب جديد</button>
+        <button type="button" role="tab" id="tab-activate" aria-selected="false"
+                aria-controls="panel-activate" data-i18n="login.tabActivate">تفعيل الحساب</button>
       </div>
 
       <p id="form-msg" class="form-msg" aria-live="polite" hidden></p>
 
-      <!-- الدخول -->
+      <!-- الدخول: رقم الجوال + كلمة المرور -->
       <form id="panel-login" role="tabpanel" aria-labelledby="tab-login" novalidate>
-        <label for="login-email" data-i18n="field.email">البريد الإلكتروني</label>
-        <input id="login-email" type="email" autocomplete="email" dir="ltr" required>
+        <label for="login-phone" data-i18n="field.phone">رقم الجوال</label>
+        <input id="login-phone" type="tel" inputmode="tel" autocomplete="username" dir="ltr" required>
 
         <label for="login-password" data-i18n="field.password">كلمة المرور</label>
         <input id="login-password" type="password" autocomplete="current-password" dir="ltr" required>
 
         <button type="submit" class="btn-primary" data-i18n="login.submit">دخول</button>
+        <p class="form-note" data-i18n="login.forgot">نسيت كلمة المرور؟ يرجى التواصل مع النادي لإعادة تعيينها.</p>
       </form>
 
-      <!-- حساب جديد -->
-      <form id="panel-signup" role="tabpanel" aria-labelledby="tab-signup" novalidate hidden>
-        <label for="signup-name" data-i18n="field.name">الاسم المستعار</label>
-        <input id="signup-name" type="text" autocomplete="nickname" maxlength="30" required>
+      <!-- التفعيل (لأول مرة): اسم مستعار + جوال + رقم عضوية + كلمة مرور -->
+      <form id="panel-activate" role="tabpanel" aria-labelledby="tab-activate" novalidate hidden>
+        <p class="form-note first" data-i18n="act.intro">التفعيل يتم برقم العضوية ورقم الجوال المسجّل لدى النادي.</p>
+
+        <label for="act-name" data-i18n="field.name">الاسم المستعار</label>
+        <input id="act-name" type="text" autocomplete="nickname" maxlength="30" required>
         <p class="field-hint" data-i18n="field.nameHint">يظهر في لوحة الترتيب بدلاً من اسمك الحقيقي</p>
 
-        <label for="signup-email" data-i18n="field.email">البريد الإلكتروني</label>
-        <input id="signup-email" type="email" autocomplete="email" dir="ltr" required>
+        <label for="act-phone" data-i18n="field.phone">رقم الجوال</label>
+        <input id="act-phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required>
+        <p class="field-hint" data-i18n="field.phoneHint">مثال: 0501234567</p>
 
-        <label for="signup-password" data-i18n="field.password">كلمة المرور</label>
-        <input id="signup-password" type="password" autocomplete="new-password" dir="ltr" minlength="8" required>
+        <label for="act-code" data-i18n="field.memberCode">رقم العضوية</label>
+        <input id="act-code" type="text" inputmode="text" autocomplete="off" dir="ltr" maxlength="30" required>
+        <p class="field-hint" data-i18n="field.memberCodeHint">رقم عضويتك المسجّل لدى النادي</p>
+
+        <label for="act-password" data-i18n="field.password">كلمة المرور</label>
+        <input id="act-password" type="password" autocomplete="new-password" dir="ltr" minlength="8" required>
         <p class="field-hint" data-i18n="field.passwordHint">ثمانية أحرف على الأقل</p>
 
-        <button type="submit" class="btn-primary" data-i18n="signup.submit">إنشاء الحساب</button>
+        <label for="act-password2" data-i18n="field.passwordConfirm">تأكيد كلمة المرور</label>
+        <input id="act-password2" type="password" autocomplete="new-password" dir="ltr" minlength="8" required>
+
+        <button type="submit" class="btn-primary" data-i18n="act.submit">تفعيل الحساب</button>
       </form>
     </div>
   </main>
@@ -63,6 +74,7 @@
 
   <script src="js/vendor/supabase.js" defer></script>
   <script src="js/supabaseClient.js" defer></script>
+  <script src="js/membership.js" defer></script>
   <script src="js/layout.js" defer></script>
   <script src="js/auth.js" defer></script>
   <script src="js/login.js" defer></script>

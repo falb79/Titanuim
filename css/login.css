@@ -87,3 +87,11 @@
 
 .form-msg.error   { background: #3d1a13; color: #ffb9a6; }
 .form-msg.success { background: #12301f; color: #9be4b5; }
+
+.form-note {
+  margin: 16px 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+#panel-activate .form-note.first { margin-top: 0; }

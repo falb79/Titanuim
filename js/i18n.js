@@ -5,134 +5,215 @@
 (function () {
   var STORAGE_KEY = 'lang';
 
-  var dict = {
-    ar: {
-      'club.name': 'تيتانيوم للياقة',
-      'nav.label': 'القائمة الرئيسية',
-      'nav.home': 'الرئيسية',
-      'nav.exercises': 'التمارين',
-      'nav.nutrition': 'التغذية',
-      'nav.challenge': 'التحدي',
-      'nav.login': 'تسجيل الدخول',
-      'nav.logout': 'تسجيل الخروج',
-      'nav.menuOpen': 'فتح القائمة',
-      'nav.menuClose': 'إغلاق القائمة',
-      'lang.switch': 'English',
+  
+var dict = {
+  ar: {
+    'club.name': 'تيتانيوم للياقة',
+    'nav.label': 'القائمة الرئيسية',
+    'nav.home': 'الرئيسية',
+    'nav.exercises': 'التمارين',
+    'nav.nutrition': 'التغذية',
+    'nav.challenge': 'التحدي',
+    'nav.login': 'تسجيل الدخول',
+    'nav.logout': 'تسجيل الخروج',
+    'nav.menuOpen': 'فتح القائمة',
+    'nav.menuClose': 'إغلاق القائمة',
+    'lang.switch': 'English',
 
-      'footer.links': 'روابط سريعة',
-      'footer.contact': 'تواصل معنا',
-      'footer.phone': 'اتصال',
-      'footer.whatsapp': 'واتساب',
-      'footer.instagram': 'إنستغرام',
-      'footer.email': 'البريد الإلكتروني',
-      'footer.rights': 'جميع الحقوق محفوظة',
+    'footer.links': 'روابط سريعة',
+    'footer.contact': 'تواصلي معنا',
+    'footer.phone': 'اتصال',
+    'footer.whatsapp': 'واتساب',
+    'footer.instagram': 'إنستغرام',
+    'footer.email': 'البريد الإلكتروني',
+    'footer.rights': 'جميع الحقوق محفوظة',
 
-      'home.title': 'أهلاً بك في النادي',
-      'home.text': 'صفحة الاستقبال. هنا نعرّف بالنادي ونوجّه العضو لتسجيل الدخول.',
-      'exercises.title': 'التمارين',
-      'exercises.text': 'اختر القسم، وشاهد شرح كل تمرين.',
-      'ex.tabUpper': 'الجزء العلوي',
-      'ex.tabLower': 'الجزء السفلي',
-      'ex.tabStretch': 'الإطالات',
-      'ex.watch': 'شاهد الشرح',
-      'ex.loading': 'جارٍ تحميل التمارين…',
-      'ex.empty': 'لا توجد تمارين في هذا القسم بعد.',
-      'ex.error': 'تعذّر تحميل التمارين. يرجى المحاولة مرة أخرى.',
-      'ex.retry': 'إعادة المحاولة',
-      'ex.lockedTitle': 'المحتوى حصري للأعضاء',
-      'ex.lockedText': 'تسجيل الدخول مطلوب لتصفح مكتبة التمارين.',
-      'nutrition.title': 'التغذية',
-      'nutrition.text': 'معلومات التغذية وتحدي الـ 30 يوماً للأكل الصحي.',
-      'challenge.title': 'التحدي الرياضي',
-      'challenge.text': 'اختر مدة التمرين: 15 أو 20 أو 30 دقيقة، وتابع ترتيبك بين الأعضاء.',
-      'login.title': 'تسجيل الدخول',
-      'login.text': 'خاص بمشتركي النادي.',
-      'login.tabLogin': 'دخول',
-      'login.tabSignup': 'حساب جديد',
-      'login.submit': 'دخول',
-      'signup.submit': 'إنشاء الحساب',
-      'login.loading': 'جارٍ المعالجة…',
-      'field.email': 'البريد الإلكتروني',
-      'field.password': 'كلمة المرور',
-      'field.passwordHint': 'ثمانية أحرف على الأقل',
-      'field.name': 'الاسم المستعار',
-      'field.nameHint': 'يظهر في لوحة الترتيب بدلاً من اسمك الحقيقي',
-      'msg.checkEmail': 'تم إرسال رابط التأكيد إلى بريدك الإلكتروني. بعد فتح الرابط يمكنك تسجيل الدخول. يرجى تفقّد الرسائل غير المرغوبة إن لم يصل.',
-      'err.email': 'يرجى كتابة بريد إلكتروني صحيح.',
-      'err.password': 'كلمة المرور يجب أن تكون 8 أحرف على الأقل.',
-      'err.name': 'الاسم المستعار يجب أن يكون من 2 إلى 30 حرفاً.',
-      'err.invalid': 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
-      'err.unconfirmed': 'لم يتم تأكيد البريد بعد. يرجى فتح رابط التأكيد المرسل إلى بريدك.',
-      'err.exists': 'هذا البريد مسجّل مسبقاً. يمكنك تسجيل الدخول.',
-      'err.weak': 'كلمة المرور ضعيفة. يرجى استخدام 8 أحرف أو أكثر.',
-      'err.rate': 'محاولات كثيرة. يرجى الانتظار قليلاً ثم المحاولة مرة أخرى.',
-      'err.noclient': 'خدمة تسجيل الدخول غير متاحة حالياً.',
-      'err.generic': 'حدث خطأ. يرجى المحاولة مرة أخرى.'
-    },
-    en: {
-      'club.name': 'Fitness Titanium',
-      'nav.label': 'Main menu',
-      'nav.home': 'Home',
-      'nav.exercises': 'Exercises',
-      'nav.nutrition': 'Nutrition',
-      'nav.challenge': 'Challenge',
-      'nav.login': 'Log in',
-      'nav.logout': 'Log out',
-      'nav.menuOpen': 'Open menu',
-      'nav.menuClose': 'Close menu',
-      'lang.switch': 'العربية',
+    'home.title': 'الرئيسية',
+    'home.heroTitle': 'تحدّيك يبدأ اليوم',
+    'home.heroText': 'تمارين، تغذية، ومنافسة بين العضوات. كل شيء في مكان واحد.',
+    'home.ctaMember': 'الذهاب إلى التحدي',
+    'home.ctaMore': 'تعرّفي على النادي',
 
-      'footer.links': 'Quick links',
-      'footer.contact': 'Contact us',
-      'footer.phone': 'Call',
-      'footer.whatsapp': 'WhatsApp',
-      'footer.instagram': 'Instagram',
-      'footer.email': 'Email',
-      'footer.rights': 'All rights reserved',
+    'home.stat1': 'عضوة',
+    'home.stat2': 'مدربة',
+    'home.stat3': 'جهاز',
 
-      'home.title': 'Welcome to the club',
-      'home.text': 'Landing page. Introduce the club and send members to log in.',
-      'exercises.title': 'Exercises',
-      'exercises.text': 'Pick a section and watch a tutorial for each exercise.',
-      'ex.tabUpper': 'Upper body',
-      'ex.tabLower': 'Lower body',
-      'ex.tabStretch': 'Stretching',
-      'ex.watch': 'Watch tutorial',
-      'ex.loading': 'Loading exercises…',
-      'ex.empty': 'No exercises in this section yet.',
-      'ex.error': 'Could not load exercises. Please try again.',
-      'ex.retry': 'Try again',
-      'ex.lockedTitle': 'Members-only content',
-      'ex.lockedText': 'Log in to browse the exercise library.',
-      'nutrition.title': 'Nutrition',
-      'nutrition.text': 'Nutrition information and the 30-day healthy eating challenge.',
-      'challenge.title': 'Fitness Challenge',
-      'challenge.text': 'Pick your session length: 15, 20 or 30 minutes, and track your rank among members.',
-      'login.title': 'Log in',
-      'login.text': 'For club members only.',
-      'login.tabLogin': 'Log in',
-      'login.tabSignup': 'Sign up',
-      'login.submit': 'Log in',
-      'signup.submit': 'Create account',
-      'login.loading': 'Please wait…',
-      'field.email': 'Email',
-      'field.password': 'Password',
-      'field.passwordHint': 'At least 8 characters',
-      'field.name': 'Nickname',
-      'field.nameHint': 'Shown on the leaderboard instead of your real name',
-      'msg.checkEmail': 'A confirmation link was sent to your email. Once you open it, you can log in. Please check your spam folder if it does not arrive.',
-      'err.email': 'Please enter a valid email address.',
-      'err.password': 'Password must be at least 8 characters.',
-      'err.name': 'Nickname must be 2 to 30 characters.',
-      'err.invalid': 'Incorrect email or password.',
-      'err.unconfirmed': 'Your email is not confirmed yet. Please open the confirmation link sent to you.',
-      'err.exists': 'This email is already registered. You can log in instead.',
-      'err.weak': 'Password is too weak. Please use 8 characters or more.',
-      'err.rate': 'Too many attempts. Please wait a moment and try again.',
-      'err.noclient': 'Login service is currently unavailable.',
-      'err.generic': 'Something went wrong. Please try again.'
-    }
-  };
+    'home.accessTitle': 'وصول سريع',
+    'home.card1Title': 'التمارين',
+    'home.card1Text': 'مكتبة تمارين مصنّفة حسب العضلة مع شرح بالفيديو.',
+    'home.card2Title': 'التغذية',
+    'home.card2Text': 'نصائح غذائية وتحدّي 30 يوماً لأكل صحي.',
+    'home.card3Title': 'التحدي',
+    'home.card3Text': 'جلسات 15 أو 20 أو 30 دقيقة، 3 أيام بالأسبوع، وترتيب بين العضوات.',
+    'home.open': 'افتحي',
+    'home.membersOnly': 'يتطلب تسجيل الدخول',
+
+    'home.aboutTitle': 'عن النادي',
+    'home.aboutText': 'في تيتانيوم للياقة نؤمن أن اللياقة أسلوب حياة. نجمع لكِ التمارين والتغذية والتحفيز في مكان واحد، لتكملي رحلتكِ خطوة بخطوة.',
+
+    'home.galleryTitle': 'من داخل النادي',
+
+    'home.hoursTitle': 'أوقات الدوام',
+    'home.hoursWeek': 'السبت – الخميس',
+    'home.hoursFriday': 'الجمعة',
+    'home.contactTitle': 'موقع النادي',
+    'home.contactText': 'جدة، حي الثغر، شارع باخشب',
+    'home.map': 'الموقع على الخريطة',
+
+    'home.bandTitle': 'جاهزة نبدأ؟',
+    'home.bandText': 'أول جلسة لكِ على بُعد خطوة.',
+
+    'exercises.title': 'التمارين',
+    'exercises.text': 'اختاري القسم، وشاهدي شرح كل تمرين.',
+    'ex.tabUpper': 'الجزء العلوي',
+    'ex.tabLower': 'الجزء السفلي',
+    'ex.tabStretch': 'الإطالات',
+    'ex.watch': 'شاهدي الشرح',
+    'ex.loading': 'جارٍ تحميل التمارين…',
+    'ex.empty': 'لا توجد تمارين في هذا القسم بعد.',
+    'ex.error': 'تعذّر تحميل التمارين. يرجى المحاولة مرة أخرى.',
+    'ex.retry': 'إعادة المحاولة',
+    'ex.lockedTitle': 'المحتوى حصري للعضوات',
+    'ex.lockedText': 'تسجيل الدخول مطلوب لتصفّح مكتبة التمارين.',
+
+    'nutrition.title': 'التغذية',
+    'nutrition.text': 'معلومات التغذية وتحدي الـ 30 يوماً للأكل الصحي.',
+
+    'challenge.title': 'التحدي الرياضي',
+    'challenge.text': 'اختاري مدة التمرين: 15 أو 20 أو 30 دقيقة، وتابعي ترتيبكِ بين العضوات.',
+
+    'login.title': 'تسجيل الدخول',
+    'login.text': 'خاص بمشتركات النادي.',
+    'login.tabLogin': 'دخول',
+    'login.tabSignup': 'حساب جديد',
+    'login.submit': 'دخول',
+    'signup.submit': 'إنشاء الحساب',
+    'login.loading': 'جارٍ المعالجة…',
+
+    'field.email': 'البريد الإلكتروني',
+    'field.password': 'كلمة المرور',
+    'field.passwordHint': 'ثمانية أحرف على الأقل',
+    'field.name': 'الاسم المستعار',
+    'field.nameHint': 'يظهر في لوحة الترتيب بدلاً من اسمكِ الحقيقي',
+
+    'msg.checkEmail': 'تم إرسال رابط التأكيد إلى بريدكِ الإلكتروني. بعد فتح الرابط يمكنكِ تسجيل الدخول. يرجى تفقّد الرسائل غير المرغوبة إن لم يصلكِ البريد.',
+
+    'err.email': 'يرجى كتابة بريد إلكتروني صحيح.',
+    'err.password': 'كلمة المرور يجب أن تكون 8 أحرف على الأقل.',
+    'err.name': 'الاسم المستعار يجب أن يكون من 2 إلى 30 حرفاً.',
+    'err.invalid': 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
+    'err.unconfirmed': 'لم يتم تأكيد البريد بعد. يرجى فتح رابط التأكيد المرسل إلى بريدكِ.',
+    'err.exists': 'هذا البريد مسجّل مسبقاً. يمكنكِ تسجيل الدخول.',
+    'err.weak': 'كلمة المرور ضعيفة. يرجى استخدام 8 أحرف أو أكثر.',
+    'err.rate': 'محاولات كثيرة. يرجى الانتظار قليلاً ثم المحاولة مرة أخرى.',
+    'err.noclient': 'خدمة تسجيل الدخول غير متاحة حالياً.',
+    'err.generic': 'حدث خطأ. يرجى المحاولة مرة أخرى.'
+  },
+
+  en: {
+    'club.name': 'Fitness Titanium',
+    'nav.label': 'Main menu',
+    'nav.home': 'Home',
+    'nav.exercises': 'Exercises',
+    'nav.nutrition': 'Nutrition',
+    'nav.challenge': 'Challenge',
+    'nav.login': 'Log in',
+    'nav.logout': 'Log out',
+    'nav.menuOpen': 'Open menu',
+    'nav.menuClose': 'Close menu',
+    'lang.switch': 'العربية',
+
+    'footer.links': 'Quick links',
+    'footer.contact': 'Contact us',
+    'footer.phone': 'Call',
+    'footer.whatsapp': 'WhatsApp',
+    'footer.instagram': 'Instagram',
+    'footer.email': 'Email',
+    'footer.rights': 'All rights reserved',
+
+    'home.title': 'Home',
+    'home.heroTitle': 'Your challenge starts today',
+    'home.heroText': 'Workouts, nutrition and rankings among female members. All in one place.',
+    'home.ctaMember': 'Go to your challenge',
+    'home.ctaMore': 'Meet the club',
+
+    'home.stat1': 'Members',
+    'home.stat2': 'Coaches',
+    'home.stat3': 'Machines',
+
+    'home.accessTitle': 'Quick access',
+    'home.card1Title': 'Exercises',
+    'home.card1Text': 'An exercise library sorted by muscle, with video tutorials.',
+    'home.card2Title': 'Nutrition',
+    'home.card2Text': 'Nutrition tips and a 30-day healthy eating challenge.',
+    'home.card3Title': 'Challenge',
+    'home.card3Text': 'Sessions of 15, 20 or 30 minutes, 3 days a week, with rankings among female members.',
+    'home.open': 'Open',
+    'home.membersOnly': 'Login required',
+
+    'home.aboutTitle': 'About the club',
+    'home.aboutText': 'At Fitness Titanium, fitness is a lifestyle. We bring workouts, nutrition and motivation together in one place so you can keep going, one step at a time.',
+
+    'home.galleryTitle': 'Inside the club',
+
+    'home.hoursTitle': 'Opening hours',
+    'home.hoursWeek': 'Saturday – Thursday',
+    'home.hoursFriday': 'Friday',
+    'home.contactTitle': 'Club location',
+    'home.contactText': 'Jeddah, Al-Thaghr district, Bakhshab Street',
+    'home.map': 'Find us on the map',
+
+    'home.bandTitle': 'Ready to start?',
+    'home.bandText': 'Your first session is one step away.',
+
+    'exercises.title': 'Exercises',
+    'exercises.text': 'Choose a section and watch a tutorial for each exercise.',
+    'ex.tabUpper': 'Upper body',
+    'ex.tabLower': 'Lower body',
+    'ex.tabStretch': 'Stretching',
+    'ex.watch': 'Watch tutorial',
+    'ex.loading': 'Loading exercises…',
+    'ex.empty': 'No exercises in this section yet.',
+    'ex.error': 'Could not load exercises. Please try again.',
+    'ex.retry': 'Try again',
+    'ex.lockedTitle': 'Members-only content',
+    'ex.lockedText': 'Log in to browse the exercise library.',
+
+    'nutrition.title': 'Nutrition',
+    'nutrition.text': 'Nutrition information and the 30-day healthy eating challenge.',
+
+    'challenge.title': 'Fitness Challenge',
+    'challenge.text': 'Choose your session length: 15, 20 or 30 minutes, and track your ranking among female members.',
+
+    'login.title': 'Log in',
+    'login.text': 'For female club members only.',
+    'login.tabLogin': 'Log in',
+    'login.tabSignup': 'Sign up',
+    'login.submit': 'Log in',
+    'signup.submit': 'Create account',
+    'login.loading': 'Please wait…',
+
+    'field.email': 'Email',
+    'field.password': 'Password',
+    'field.passwordHint': 'At least 8 characters',
+    'field.name': 'Nickname',
+    'field.nameHint': 'Shown on the leaderboard instead of your real name',
+
+    'msg.checkEmail': 'A confirmation link was sent to your email. Once you open it, you can log in. Please check your spam folder if it does not arrive.',
+
+    'err.email': 'Please enter a valid email address.',
+    'err.password': 'Password must be at least 8 characters.',
+    'err.name': 'Nickname must be 2 to 30 characters.',
+    'err.invalid': 'Incorrect email or password.',
+    'err.unconfirmed': 'Your email is not confirmed yet. Please open the confirmation link sent to you.',
+    'err.exists': 'This email is already registered. You can log in instead.',
+    'err.weak': 'Password is too weak. Please use 8 characters or more.',
+    'err.rate': 'Too many attempts. Please wait a moment and try again.',
+    'err.noclient': 'Login service is currently unavailable.',
+    'err.generic': 'Something went wrong. Please try again.'
+  }
+};
+
 
   function readSaved() {
     try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
@@ -142,7 +223,6 @@
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* التخزين غير متاح */ }
   }
 
-  // أول زيارة: إنجليزي فقط لو لغة المتصفح إنجليزية، غير ذلك عربي
   function detect() {
     var saved = readSaved();
     if (saved === 'ar' || saved === 'en') return saved;
@@ -172,8 +252,9 @@
 
   function apply(root) {
     root = root || document;
+    // استخدام innerHTML للعناصر التي تحتوي على وسوم HTML مثل <span class='highlight'> أو <br>
     root.querySelectorAll('[data-i18n]').forEach(function (el) {
-      el.textContent = t(el.getAttribute('data-i18n'));
+      el.innerHTML = t(el.getAttribute('data-i18n'));
     });
     root.querySelectorAll('[data-i18n-label]').forEach(function (el) {
       el.setAttribute('aria-label', t(el.getAttribute('data-i18n-label')));
@@ -190,7 +271,6 @@
     document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: lang } }));
   }
 
-  // لإضافة مفاتيح من ملفات أخرى (مثلاً صفحة التحدي): I18N.add('ar', {...})
   function add(lang, entries) {
     dict[lang] = Object.assign(dict[lang] || {}, entries);
   }

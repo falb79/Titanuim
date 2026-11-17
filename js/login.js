@@ -1,12 +1,15 @@
-// نموذجا الدخول وإنشاء الحساب
+// صفحة الدخول والتفعيل
+//  - الدخول: رقم الجوال + كلمة المرور
+//  - التفعيل (أول مرة): اسم مستعار + جوال + رقم عضوية + كلمة مرور، عن طريق دالة activate-member
 (function () {
   var sb = window.sb;
+  var M = window.Membership;
 
   var msg = document.getElementById('form-msg');
   var tabLogin = document.getElementById('tab-login');
-  var tabSignup = document.getElementById('tab-signup');
+  var tabActivate = document.getElementById('tab-activate');
   var loginForm = document.getElementById('panel-login');
-  var signupForm = document.getElementById('panel-signup');
+  var activateForm = document.getElementById('panel-activate');
 
   function $(id) { return document.getElementById(id); }
 
@@ -28,102 +31,119 @@
   function selectTab(which) {
     var isLogin = which === 'login';
     loginForm.hidden = !isLogin;
-    signupForm.hidden = isLogin;
+    activateForm.hidden = isLogin;
     tabLogin.setAttribute('aria-selected', String(isLogin));
-    tabSignup.setAttribute('aria-selected', String(!isLogin));
+    tabActivate.setAttribute('aria-selected', String(!isLogin));
     clearMsg();
   }
 
   tabLogin.addEventListener('click', function () { selectTab('login'); });
-  tabSignup.addEventListener('click', function () { selectTab('signup'); });
-  if (location.hash === '#signup') selectTab('signup');
+  tabActivate.addEventListener('click', function () { selectTab('activate'); });
+  if (location.hash === '#activate' || location.hash === '#signup') selectTab('activate');
 
-  /* ---------- أدوات ---------- */
-  function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
-  function setBusy(form, busy) {
-    var btn = form.querySelector('button[type="submit"]');
-    btn.disabled = busy;
-    btn.textContent = I18N.t(busy ? 'login.loading' : btn.getAttribute('data-i18n'));
-  }
-
-  // يحوّل خطأ Supabase إلى مفتاح رسالة مترجمة
-  function errKey(error) {
-    var code = (error && error.code) || '';
-    var text = ((error && error.message) || '').toLowerCase();
-    if (code === 'invalid_credentials' || text.indexOf('invalid login') !== -1) return 'err.invalid';
-    if (code === 'email_not_confirmed' || text.indexOf('not confirmed') !== -1) return 'err.unconfirmed';
-    if (code === 'user_already_exists' || text.indexOf('already registered') !== -1) return 'err.exists';
-    if (code === 'weak_password') return 'err.weak';
-    if (error && (error.status === 429 || code.indexOf('rate_limit') !== -1)) return 'err.rate';
-    return 'err.generic';
-  }
-
-  // الرجوع للصفحة اللي جاء منها العضو (مثلاً login.html?next=exercises.html)
-  // نسمح فقط بصفحات الموقع المعروفة، حتى ما يتحول لموقع خارجي
+  /* ---------- الرجوع للصفحة اللي جاء منها العضو (login.html?next=exercises.html) ---------- */
   var NEXT_PAGES = ['index.html', 'exercises.html', 'nutrition.html', 'challenge.html'];
   function nextPage() {
     var next = new URLSearchParams(location.search).get('next');
     return NEXT_PAGES.indexOf(next) !== -1 ? next : 'index.html';
   }
 
+  /* ---------- أدوات ---------- */
+  function setBusy(form, busy) {
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = busy;
+    btn.textContent = I18N.t(busy ? 'login.loading' : btn.getAttribute('data-i18n'));
+  }
+
+  function loginErrKey(error) {
+    var code = (error && error.code) || '';
+    var text = ((error && error.message) || '').toLowerCase();
+    if (code === 'invalid_credentials' || text.indexOf('invalid login') !== -1) return 'err.loginInvalid';
+    if (error && (error.status === 429 || code.indexOf('rate_limit') !== -1)) return 'err.rate';
+    return 'err.generic';
+  }
+
+  // رد دالة التفعيل ← مفتاح الرسالة
+  var REASONS = {
+    invalid: 'err.actInvalid',
+    expired: 'err.actExpired',
+    already_claimed: 'err.actClaimed',
+    locked: 'err.actLocked',
+    phone_in_use: 'err.actPhoneInUse',
+    bad_name: 'err.name',
+    bad_phone: 'err.phone',
+    bad_code: 'err.code',
+    bad_password: 'err.password'
+  };
+
   /* ---------- الدخول ---------- */
   loginForm.addEventListener('submit', function (e) {
     e.preventDefault();
     clearMsg();
-    if (!sb) { showMsg('error', 'err.noclient'); return; }
+    if (!sb || !M) { showMsg('error', 'err.noclient'); return; }
 
-    var email = $('login-email').value.trim();
+    var phone = M.normalizePhone($('login-phone').value);
     var password = $('login-password').value;
 
-    if (!validEmail(email)) { showMsg('error', 'err.email'); $('login-email').focus(); return; }
-    if (!password) { showMsg('error', 'err.password'); $('login-password').focus(); return; }
+    if (!M.isValidPhone(phone)) { showMsg('error', 'err.phone'); $('login-phone').focus(); return; }
+    if (!password) { showMsg('error', 'err.passwordRequired'); $('login-password').focus(); return; }
 
     setBusy(loginForm, true);
-    sb.auth.signInWithPassword({ email: email, password: password })
+    sb.auth.signInWithPassword({ email: M.phoneToEmail(phone), password: password })
       .then(function (r) {
-        if (r.error) { showMsg('error', errKey(r.error)); return; }
+        if (r.error) { showMsg('error', loginErrKey(r.error)); return; }
         location.href = nextPage();
       })
       .catch(function () { showMsg('error', 'err.generic'); })
       .then(function () { setBusy(loginForm, false); });
   });
 
-  /* ---------- إنشاء حساب ---------- */
-  signupForm.addEventListener('submit', function (e) {
+  /* ---------- التفعيل ---------- */
+  activateForm.addEventListener('submit', function (e) {
     e.preventDefault();
     clearMsg();
-    if (!sb) { showMsg('error', 'err.noclient'); return; }
+    if (!sb || !M) { showMsg('error', 'err.noclient'); return; }
 
-    var name = $('signup-name').value.trim();
-    var email = $('signup-email').value.trim();
-    var password = $('signup-password').value;
+    var name = $('act-name').value.trim();
+    var rawPhone = $('act-phone').value;
+    var rawCode = $('act-code').value;
+    var password = $('act-password').value;
+    var password2 = $('act-password2').value;
+    var phone = M.normalizePhone(rawPhone);
+    var nameLen = Array.from(name).length;
 
-    if (name.length < 2 || name.length > 30) { showMsg('error', 'err.name'); $('signup-name').focus(); return; }
-    if (!validEmail(email)) { showMsg('error', 'err.email'); $('signup-email').focus(); return; }
-    if (password.length < 8) { showMsg('error', 'err.password'); $('signup-password').focus(); return; }
+    if (nameLen < 2 || nameLen > 30) { showMsg('error', 'err.name'); $('act-name').focus(); return; }
+    if (!M.isValidPhone(phone)) { showMsg('error', 'err.phone'); $('act-phone').focus(); return; }
+    if (!M.normalizeCode(rawCode)) { showMsg('error', 'err.code'); $('act-code').focus(); return; }
+    if (password.length < 8) { showMsg('error', 'err.password'); $('act-password').focus(); return; }
+    if (password !== password2) { showMsg('error', 'err.passwordMismatch'); $('act-password2').focus(); return; }
 
-    setBusy(signupForm, true);
-    sb.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        data: { display_name: name, lang: I18N.getLang() },
-        emailRedirectTo: new URL('login.html', location.href).href
-      }
+    setBusy(activateForm, true);
+    sb.functions.invoke('activate-member', {
+      body: { display_name: name, phone: rawPhone, member_code: rawCode, password: password, lang: I18N.getLang() }
     })
       .then(function (r) {
-        if (r.error) { showMsg('error', errKey(r.error)); return; }
-        // لو تأكيد الإيميل مطفي: يرجع جلسة مباشرة
-        if (r.data && r.data.session) { location.href = nextPage(); return; }
-        signupForm.reset();
-        showMsg('success', 'msg.checkEmail');
+        var d = r.data;
+        if (r.error || !d) { showMsg('error', 'err.generic'); return; }
+        if (!d.ok) { showMsg('error', REASONS[d.reason] || 'err.generic'); return; }
+
+        // تم التفعيل: ندخلها مباشرة بنفس الجوال وكلمة المرور
+        return sb.auth.signInWithPassword({ email: d.email, password: password }).then(function (s) {
+          if (s.error) {
+            selectTab('login');
+            $('login-phone').value = rawPhone;
+            showMsg('success', 'act.successLogin');
+            return;
+          }
+          showMsg('success', 'act.success');
+          location.href = nextPage();
+        });
       })
       .catch(function () { showMsg('error', 'err.generic'); })
-      .then(function () { setBusy(signupForm, false); });
+      .then(function () { setBusy(activateForm, false); });
   });
 
-  /* ---------- لو مسجّل دخول أصلاً (مثلاً بعد ضغط رابط التأكيد) ---------- */
+  /* ---------- لو مسجّلة دخول أصلاً ---------- */
   if (window.Auth) {
     Auth.getSession().then(function (session) {
       if (session) location.replace(nextPage());

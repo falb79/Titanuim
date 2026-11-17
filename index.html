@@ -10,13 +10,154 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
 </head>
 <body data-page="home">
   <div id="site-header"></div>
 
-  <main>
-    <h1 data-i18n="home.title">أهلاً بك في النادي</h1>
-    <p data-i18n="home.text">صفحة الاستقبال. هنا نعرّف بالنادي ونوجّه العضو لتسجيل الدخول.</p>
+  <main class="home">
+
+    <!-- ============ 1) الواجهة الافتتاحية ============ -->
+    <section class="hero">
+      <!-- بدّلي assets/home/hero.jpg بصورة من النادي بنفس الاسم (1600×900 تقريباً) -->
+      <img class="hero-img" src="assets/home/devices.png" alt="" width="1600" height="1000" fetchpriority="high" decoding="async">
+      <div class="wrap">
+        <div class="hero-content">
+          <span class="kicker" data-i18n="club.name">تيتانيوم للياقة</span>
+          <h1 data-i18n="home.heroTitle">تحدّيك يبدأ اليوم</h1>
+          <p class="hero-sub" data-i18n="home.heroText">تمارين، تغذية، ومنافسة بين الأعضاء. كل شي في مكان واحد.</p>
+          <div class="hero-actions">
+            <a class="btn-hero primary" id="hero-cta" href="login.html" data-i18n="nav.login">تسجيل الدخول</a>
+            <a class="btn-hero ghost" href="#about" data-i18n="home.ctaMore">تعرّف على النادي</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ أرقام النادي ============ -->
+    <!-- ⚠️ أرقام تجريبية (00+): بدّليها بأرقام النادي الحقيقية أو احذفي هذا القسم -->
+    <section class="stats" aria-label="">
+      <div class="wrap stats-grid">
+        <div class="stat"><span class="stat-num"><bdi dir="ltr">100+</bdi></span><span class="stat-label" data-i18n="home.stat1">عضو</span></div>
+        <div class="stat"><span class="stat-num"><bdi dir="ltr">11+</bdi></span><span class="stat-label" data-i18n="home.stat2">مدرب</span></div>
+        <div class="stat"><span class="stat-num"><bdi dir="ltr">70+</bdi></span><span class="stat-label" data-i18n="home.stat3">جهاز</span></div>
+      </div>
+    </section>
+
+    <!-- ============ 2) وصول سريع للأعضاء ============ -->
+    <section class="section">
+      <div class="wrap">
+        <h2 class="section-title reveal" data-i18n="home.accessTitle">وصول سريع</h2>
+        <div class="qa-grid">
+
+          <a class="qa-card reveal" href="exercises.html">
+            <span class="qa-lock" hidden data-i18n-label="home.membersOnly">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            </span>
+            <span class="qa-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg>
+            </span>
+            <h3 data-i18n="home.card1Title">مكتبة التمارين</h3>
+            <p data-i18n="home.card1Text">مكتبة تمارين مصنّفة حسب العضلة مع شرح بالفيديو.</p>
+            <span class="qa-open"><span data-i18n="home.open">افتح</span>
+              <svg class="arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+
+          <a class="qa-card reveal" style="--d:.1s" href="nutrition.html">
+            <span class="qa-lock" hidden data-i18n-label="home.membersOnly">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            </span>
+            <span class="qa-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8c-2.6-2-6.5-1-6.5 3.2 0 4.4 3 9 6.5 9s6.5-4.600 6.5-9C18.500 7 14.600 6 12 8z"/><path d="M12 8c0-2 1-3.500 3-4.500"/></svg>
+            </span>
+            <h3 data-i18n="home.card2Title">التغذية</h3>
+            <p data-i18n="home.card2Text">نصائح غذائية وتحدّي 30 يوماً لأكل صحي.</p>
+            <span class="qa-open"><span data-i18n="home.open">افتح</span>
+              <svg class="arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+
+          <a class="qa-card reveal" style="--d:.2s" href="challenge.html">
+            <span class="qa-lock" hidden data-i18n-label="home.membersOnly">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            </span>
+            <span class="qa-icon">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 6H5v1.500A3 3 0 0 0 8 10.500M16 6h3v1.500a3 3 0 0 1-3 3"/><path d="M12 13v4M10 17h4M8.500 20h7"/></svg>
+            </span>
+            <h3 data-i18n="home.card3Title">التحدي</h3>
+            <p data-i18n="home.card3Text">جلسات 15 أو 20 أو 30 دقيقة، 3 أيام بالأسبوع، وترتيب بين الأعضاء.</p>
+            <span class="qa-open"><span data-i18n="home.open">افتح</span>
+              <svg class="arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3) عن النادي ============ -->
+    <!-- ⚠️ النص تجريبي: بدّليه بنبذة النادي (في js/i18n/home.js) -->
+    <section class="section about" id="about">
+      <div class="wrap about-grid">
+        <div class="about-media reveal">
+          <img src="assets/logo.jpg" alt="" width="1000" height="750" loading="lazy" decoding="async">
+        </div>
+        <div class="about-text reveal" style="--d:.1s">
+          <h2 class="section-title" data-i18n="home.aboutTitle">عن النادي</h2>
+          <p data-i18n="home.aboutText">في تيتانيوم للياقة نؤمن أن اللياقة أسلوب حياة. نجمع لك التمارين والتغذية والتحفيز في مكان واحد، لتكمل رحلتك خطوة بخطوة.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4) معرض الصور ============ -->
+    <!-- بدّلي gallery-1.jpg … gallery-6.jpg بصور النادي (800×600 تقريباً) -->
+    <section class="section gallery-section">
+      <div class="wrap">
+        <h2 class="section-title reveal" data-i18n="home.galleryTitle">من داخل النادي</h2>
+        <div class="gallery">
+          <div class="g-item reveal"><img src="assets/home/1.png" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
+          <div class="g-item reveal" style="--d:.05s"><img src="assets/home/2.png" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
+          <div class="g-item reveal" style="--d:.1s"><img src="assets/home/3.png" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
+          <div class="g-item reveal"><img src="assets/home/4.png" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
+          <div class="g-item reveal" style="--d:.05s"><img src="assets/home/5.png" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
+          <div class="g-item reveal" style="--d:.1s"><img src="assets/home/6.png" alt="" width="800" height="600" loading="lazy" decoding="async"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5) الدوام والتواصل ============ -->
+    <!-- ⚠️ الأوقات (00:00) والروابط (#) تجريبية: بدّليها ببيانات النادي -->
+    <section class="section">
+      <div class="wrap info-grid">
+        <div class="info-card reveal">
+          <h3 data-i18n="home.hoursTitle">أوقات الدوام</h3>
+          <ul class="hours">
+            <li><span data-i18n="home.hoursWeek">السبت – الخميس</span><bdi dir="ltr">07:00 am – 10:00 pm</bdi></li>
+            <li><span data-i18n="home.hoursFriday">الجمعة</span><bdi dir="ltr">مغلق</bdi></li>
+          </ul>
+        </div>
+        <div class="info-card reveal" style="--d:.1s">
+          <h3 data-i18n="home.contactTitle">موقع النادي</h3>
+          <div class="contact-buttons">
+           <p data-i18n="home.contactText">جدة، حي الثغر، شارع باخشب</p>
+          <a class="btn-outline" href="#" data-i18n="home.map">الموقع على الخريطة</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ شريط الدعوة الأخير ============ -->
+    <section class="band">
+      <div class="wrap band-inner">
+        <div>
+          <h2 data-i18n="home.bandTitle">جاهزين نبدأ؟</h2>
+          <p data-i18n="home.bandText">أول جلسة لك على بعد خطوة.</p>
+        </div>
+        <a class="btn-band" id="band-cta" href="login.html" data-i18n="nav.login">تسجيل الدخول</a>
+      </div>
+    </section>
+
   </main>
 
   <div id="site-footer"></div>
@@ -25,5 +166,6 @@
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/layout.js" defer></script>
   <script src="js/auth.js" defer></script>
+  <script src="js/home.js" defer></script>
 </body>
 </html>

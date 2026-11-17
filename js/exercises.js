@@ -10,6 +10,12 @@
   var lock = document.getElementById('ex-lock');
   var intro = document.getElementById('ex-intro');
 
+  // صورة لكل مجموعة عضلية: assets/exercises/<اسم-المجموعة>.<الامتداد>
+  // مثال: assets/exercises/back.jpg  (الأسماء الـ 12 مذكورة في الشرح)
+  // لو صورك webp غيّري الامتداد هنا إلى 'webp' (أو 'png')
+  var GROUP_IMAGE_DIR = 'assets/exercises/';
+  var GROUP_IMAGE_EXT = 'png';
+
   var state = { section: 'upper', groups: null, exercises: null };
 
   /* ---------- رسالة الحالة (تتغير لغتها لأنها تحمل data-i18n) ---------- */
@@ -31,6 +37,23 @@
     if (className) node.className = className;
     if (text != null) node.textContent = text;
     return node;
+  }
+
+  // صورة المجموعة. لو الملف غير موجود تختفي الصورة وتبقى البطاقات كما كانت.
+  function groupImage(slug, body) {
+    if (!/^[a-z0-9_-]+$/i.test(slug || '')) return null;   // اسم آمن فقط
+    var wrap = el('div', 'ex-media');
+    var img = document.createElement('img');
+    img.alt = '';                                           // الصورة تزيينية، العنوان يكفي
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.src = GROUP_IMAGE_DIR + slug + '.' + GROUP_IMAGE_EXT;
+    img.addEventListener('error', function () {
+      body.classList.remove('has-img');
+      wrap.remove();
+    });
+    wrap.appendChild(img);
+    return wrap;
   }
 
   function render() {
@@ -70,7 +93,14 @@
           list.appendChild(card);
         });
 
-      section.appendChild(list);
+      var body = el('div', 'ex-group-body');
+      var media = groupImage(g.slug, body);
+      if (media) {
+        body.classList.add('has-img');
+        body.appendChild(media);
+      }
+      body.appendChild(list);
+      section.appendChild(body);
       content.appendChild(section);
     });
   }
