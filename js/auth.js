@@ -1,6 +1,6 @@
 // حالة تسجيل الدخول المشتركة بين كل الصفحات.
 // - يغيّر زر الهيدر بين "تسجيل الدخول" و"تسجيل الخروج"
-// - يوفر Auth.getSession() و Auth.requireLogin() للصفحات الأخرى
+// - يوفر Auth.getSession() و Auth.requireLogin() و Auth.isMember() للصفحات الأخرى
 (function () {
   var sb = window.sb;
 
@@ -35,7 +35,17 @@
     I18N.apply(link.parentNode);
   }
 
-  window.Auth = { getSession: getSession, requireLogin: requireLogin };
+  // هل الحساب مربوط بمشتركة في القائمة؟
+  // يرجع true أو false، أو null لو تعذّر الفحص (مشكلة اتصال).
+  // الحماية الحقيقية في قاعدة البيانات، وهذي فقط عشان نعرض رسالة مناسبة.
+  function isMember() {
+    if (!sb) return Promise.resolve(null);
+    return sb.rpc('is_active_member')
+      .then(function (r) { return r.error ? null : r.data === true; })
+      .catch(function () { return null; });
+  }
+
+  window.Auth = { getSession: getSession, requireLogin: requireLogin, isMember: isMember };
 
   if (!sb) return;
 

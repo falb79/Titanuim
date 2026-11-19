@@ -8,6 +8,7 @@
   var retryBtn = document.getElementById('ex-retry');
   var content = document.getElementById('ex-content');
   var lock = document.getElementById('ex-lock');
+  var noMember = document.getElementById('ex-nomember');
   var intro = document.getElementById('ex-intro');
 
   // صورة لكل مجموعة عضلية: assets/exercises/<اسم-المجموعة>.<الامتداد>
@@ -117,13 +118,25 @@
   });
 
   /* ---------- شاشة القفل (لغير المسجّل) ---------- */
-  function showLocked() {
+  function hideContent() {
     intro.hidden = true;
     tabs.hidden = true;
     retryBtn.hidden = true;
     content.textContent = '';
     setStatus(null);
+  }
+
+  function showLocked() {
+    hideContent();
+    noMember.hidden = true;
     lock.hidden = false;
+  }
+
+  /* ---------- حساب مسجّل لكنه غير مرتبط بعضوية ---------- */
+  function showNoMember() {
+    hideContent();
+    lock.hidden = true;
+    noMember.hidden = false;
   }
 
   /* ---------- جلب البيانات ---------- */
@@ -146,6 +159,16 @@
         }
         state.groups = r[0].data || [];
         state.exercises = r[1].data || [];
+
+        // ما رجع شي: يمكن عضويتها انفكت للتو، نتأكد
+        if (!state.groups.length && !state.exercises.length) {
+          return Auth.isMember().then(function (member) {
+            if (member === false) { showNoMember(); return; }
+            tabs.hidden = false;
+            render();
+          });
+        }
+
         tabs.hidden = false;
         render();
       })
@@ -161,8 +184,13 @@
   /* ---------- البداية ---------- */
   if (!sb || !window.Auth) { setStatus('ex.error'); return; }
 
-  // غير مسجّل دخول؟ نعرض القفل بدون أي طلب لقاعدة البيانات
+  // غير مسجّلة دخول؟ نعرض القفل بدون أي طلب لقاعدة البيانات.
+  // مسجّلة لكن غير مربوطة بعضوية؟ نعرض رسالة مناسبة.
   Auth.getSession().then(function (session) {
-    if (session) load(); else showLocked();
+    if (!session) { showLocked(); return; }
+    return Auth.isMember().then(function (member) {
+      if (member === false) { showNoMember(); return; }
+      load();   // لو تعذّر الفحص (null) نجرب نجلب البيانات، وقاعدة البيانات هي اللي تحمي
+    });
   });
 })();

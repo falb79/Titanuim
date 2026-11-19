@@ -6,6 +6,7 @@
   <title>التمارين | تيتانيوم للياقة</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <script src="js/i18n.js"></script>
+  <script src="js/i18n/exercises.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
@@ -44,6 +45,20 @@
       <p data-i18n="ex.lockedText">تسجيل الدخول مطلوب لتصفح مكتبة التمارين.</p>
       <a class="btn-primary" href="login.html?next=exercises.html" data-i18n="nav.login">تسجيل الدخول</a>
     </section>
+
+    <!-- حساب مسجّل لكنه غير مرتبط بعضوية: لا يوجد فيها أي محتوى حصري -->
+    <section class="ex-lock" id="ex-nomember" hidden>
+      <svg class="ex-lock-icon" viewBox="0 0 64 64" width="84" height="84" aria-hidden="true" focusable="false">
+        <circle class="lock-ring" cx="32" cy="32" r="30" stroke-width="2"/>
+        <path class="lock-shackle" d="M24.5 30v-5.5a7.5 7.5 0 0 1 15 0V30" fill="none" stroke-width="3.5" stroke-linecap="round"/>
+        <rect class="lock-body" x="19" y="29" width="26" height="19" rx="4.5"/>
+        <circle class="lock-keyhole" cx="32" cy="37.5" r="2.6"/>
+        <rect class="lock-keyhole" x="30.8" y="38" width="2.4" height="5" rx="1.2"/>
+      </svg>
+      <h2 data-i18n="ex.noMemberTitle">لا توجد عضوية مرتبطة بحسابك</h2>
+      <p data-i18n="ex.noMemberText">يرجى التواصل مع النادي لتفعيل عضويتك.</p>
+    </section>
+
   </main>
 
   <div id="site-footer"></div>

@@ -139,7 +139,7 @@
 .ex-media {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 9;   /* ارتفاع الصورة على الجوال. أنحف: 4 / 1 — أطول: 2 / 1 */
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--surface);
