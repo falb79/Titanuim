@@ -6,17 +6,89 @@
   <title>التغذية | تيتانيوم للياقة</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <script src="js/i18n.js"></script>
+  <script src="js/i18n/nutrition.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/nutrition.css">
 </head>
 <body data-page="nutrition">
   <div id="site-header"></div>
 
-  <main>
-    <h1 data-i18n="nutrition.title">التغذية</h1>
-    <p data-i18n="nutrition.text">معلومات التغذية وتحدي الـ 30 يوماً للأكل الصحي.</p>
+  <main class="nutri">
+
+    <!-- الواجهة: نص عام (ما فيه محتوى حصري) -->
+    <section class="n-hero" id="n-hero">
+      <div class="wrap">
+        <div class="n-hero-inner">
+          <span class="kicker" data-i18n="club.name">تيتانيوم للياقة</span>
+          <h1 data-i18n="nutrition.heroTitle">دليل التغذية الشامل</h1>
+          <p class="n-slogan" data-i18n="nutrition.heroSlogan">غذاء أفضل، نسخة أقوى منك.</p>
+          <p class="n-hero-text" data-i18n="nutrition.heroText">التغذية الصحية ليست مجرد وسيلة لخسارة الوزن أو زيادته، بل هي أساس مهم لصحة الجسم والطاقة والأداء الرياضي.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- البوابة: تحميل / قفل لغير المسجّلة / حساب بدون عضوية -->
+    <div class="wrap n-gate">
+      <p class="n-status" id="n-status" aria-live="polite" data-i18n="nutrition.loading">جارٍ تحميل الدليل…</p>
+      <button type="button" class="btn-secondary" id="n-retry" data-i18n="nutrition.retry" hidden>إعادة المحاولة</button>
+
+      <section class="n-lock" id="n-lock" hidden>
+        <svg class="n-lock-icon" viewBox="0 0 64 64" width="84" height="84" aria-hidden="true" focusable="false">
+          <circle class="lock-ring" cx="32" cy="32" r="30" stroke-width="2"/>
+          <path class="lock-shackle" d="M24.5 30v-5.5a7.5 7.5 0 0 1 15 0V30" fill="none" stroke-width="3.5" stroke-linecap="round"/>
+          <rect class="lock-body" x="19" y="29" width="26" height="19" rx="4.5"/>
+          <circle class="lock-keyhole" cx="32" cy="37.5" r="2.6"/>
+          <rect class="lock-keyhole" x="30.8" y="38" width="2.4" height="5" rx="1.2"/>
+        </svg>
+        <h2 data-i18n="nutrition.lockedTitle">المحتوى حصري للأعضاء</h2>
+        <p data-i18n="nutrition.lockedText">تسجيل الدخول مطلوب لتصفح دليل التغذية.</p>
+        <a class="btn-primary" href="login.html?next=nutrition.html" data-i18n="nav.login">تسجيل الدخول</a>
+      </section>
+
+      <section class="n-lock" id="n-nomember" hidden>
+        <svg class="n-lock-icon" viewBox="0 0 64 64" width="84" height="84" aria-hidden="true" focusable="false">
+          <circle class="lock-ring" cx="32" cy="32" r="30" stroke-width="2"/>
+          <path class="lock-shackle" d="M24.5 30v-5.5a7.5 7.5 0 0 1 15 0V30" fill="none" stroke-width="3.5" stroke-linecap="round"/>
+          <rect class="lock-body" x="19" y="29" width="26" height="19" rx="4.5"/>
+          <circle class="lock-keyhole" cx="32" cy="37.5" r="2.6"/>
+          <rect class="lock-keyhole" x="30.8" y="38" width="2.4" height="5" rx="1.2"/>
+        </svg>
+        <h2 data-i18n="nutrition.noMemberTitle">لا توجد عضوية مرتبطة بحسابك</h2>
+        <p data-i18n="nutrition.noMemberText">يرجى التواصل مع النادي لتفعيل عضويتك.</p>
+      </section>
+    </div>
+
+    <!-- المحتوى: يُبنى بالجافاسكربت بعد التأكد من العضوية. لا يوجد أي محتوى حصري في هذا الملف. -->
+    <div id="n-content" hidden>
+      <nav class="n-nav" id="n-nav" data-i18n-label="nutrition.navLabel"></nav>
+      <div class="wrap">
+        <div id="n-notice"></div>
+        <section class="n-section" id="n-goals"></section>
+        <section class="n-section" id="n-guide"></section>
+        <section class="n-section" id="n-challenge"></section>
+        <section class="n-section" id="n-tips"></section>
+        <section class="n-section" id="n-book"></section>
+        <section class="n-section" id="n-refs"></section>
+      </div>
+    </div>
+
+    <!-- نافذة قراءة الموضوع -->
+    <dialog class="n-reader" id="n-reader" aria-labelledby="n-reader-title">
+      <header class="n-reader-head">
+        <span class="n-reader-icon" id="n-reader-icon"></span>
+        <h2 id="n-reader-title"></h2>
+        <button type="button" class="n-close" id="n-reader-close" data-i18n-label="nutrition.close">✕</button>
+      </header>
+      <div class="n-reader-body" id="n-reader-body"></div>
+      <footer class="n-reader-foot">
+        <button type="button" class="n-nav-btn" id="n-reader-prev"></button>
+        <button type="button" class="n-nav-btn" id="n-reader-next"></button>
+      </footer>
+    </dialog>
+
   </main>
 
   <div id="site-footer"></div>
@@ -25,5 +97,6 @@
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/layout.js" defer></script>
   <script src="js/auth.js" defer></script>
+  <script src="js/nutrition.js" defer></script>
 </body>
 </html>
