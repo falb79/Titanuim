@@ -12,7 +12,6 @@ if (!document.querySelector("#font-awesome-css")) {
 }
 
   const CONTACT = {
-  phone: "966569845239",
   whatsapp: "966569845239",
   instagram: "ti.taniumgym",
   snapchat: "ti.taniumgym",
@@ -55,7 +54,9 @@ if (!document.querySelector("#font-awesome-css")) {
             'aria-expanded="false" aria-controls="main-nav">☰</button>' +
           '<nav class="main-nav" id="main-nav" data-i18n-label="nav.label">' +
             '<ul>' + navItems(true) + '</ul>' +
-            '<a class="btn-login" id="auth-link" href="login.html" data-i18n="nav.login"></a>' +
+            '<div class="acc-wrap">' +
+              '<a class="btn-login" id="auth-link" href="login.html" data-i18n="nav.login"></a>' +
+            '</div>' +
           '</nav>' +
         '</div>' +
       '</header>';
@@ -134,8 +135,8 @@ if (!document.querySelector("#font-awesome-css")) {
           contactCol +
         '</div>' +
         '<div class="footer-bottom">' +
-          '<p>© ' + new Date().getFullYear() + ' <span data-i18n="club.name"></span> — ' +
-          '<span data-i18n="footer.rights"></span></p>' +
+          '<p>© ' + new Date().getFullYear() +
+          ' <span data-i18n="footer.rights"></span></p>' +
         '</div>' +
       '</footer>';
 

@@ -6,17 +6,120 @@
   <title>التحدي | تيتانيوم للياقة</title>
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <script src="js/i18n.js"></script>
+  <script src="js/i18n/challenge.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/challenge.css">
 </head>
 <body data-page="challenge">
   <div id="site-header"></div>
 
-  <main>
-    <h1 data-i18n="challenge.title">التحدي الرياضي</h1>
-    <p data-i18n="challenge.text">اختر مدة التمرين: 15 أو 20 أو 30 دقيقة، وتابع ترتيبك بين الأعضاء.</p>
+  <main class="chal">
+
+    <!-- ============ الواجهة (عامة) ============ -->
+    <section class="c-hero">
+      <div class="c-wrap">
+        <span class="c-kicker" data-i18n="club.name">تيتانيوم للياقة</span>
+        <h1 data-i18n="ch.heroTitle">التحدي الرياضي</h1>
+        <p class="c-slogan" data-i18n="ch.heroSlogan">3 أيام في الأسبوع. 4 أسابيع. أنتِ قدّها.</p>
+        <p class="c-dates">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+          <span data-i18n="ch.heroDates">من الأحد 29 نوفمبر إلى السبت 26 ديسمبر</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ القواعد (عامة، ما فيها محتوى حصري) ============ -->
+    <section class="c-wrap c-rules" id="c-rules" hidden>
+      <details class="c-rules-box">
+        <summary>
+          <span class="c-icon-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+          </span>
+          <span class="c-rules-title" data-i18n="ch.rulesTitle">كيف يشتغل التحدي؟</span>
+          <svg class="c-chev" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+
+        <p class="c-rules-intro" data-i18n="ch.rulesIntro"></p>
+
+        <!-- جدول النقاط -->
+        <div class="c-points" role="list">
+          <div class="c-point" role="listitem"><strong><bdi>15</bdi> <span data-i18n="ch.min">دقيقة</span></strong><bdi class="c-pts" dir="ltr">+10</bdi></div>
+          <div class="c-point" role="listitem"><strong><bdi>20</bdi> <span data-i18n="ch.min">دقيقة</span></strong><bdi class="c-pts" dir="ltr">+15</bdi></div>
+          <div class="c-point" role="listitem"><strong><bdi>30</bdi> <span data-i18n="ch.min">دقيقة</span></strong><bdi class="c-pts" dir="ltr">+20</bdi></div>
+          <div class="c-point is-class" role="listitem"><strong data-i18n="ch.classShort">كلاس مع المدربة</strong><bdi class="c-pts" dir="ltr">+25</bdi></div>
+        </div>
+
+        <ol class="c-rule-list">
+          <li><strong data-i18n="ch.rule1Title"></strong><span data-i18n="ch.rule1"></span></li>
+          <li><strong data-i18n="ch.rule2Title"></strong><span data-i18n="ch.rule2"></span></li>
+          <li><strong data-i18n="ch.rule3Title"></strong><span data-i18n="ch.rule3"></span></li>
+          <li><strong data-i18n="ch.rule4Title"></strong><span data-i18n="ch.rule4"></span></li>
+          <li><strong data-i18n="ch.rule5Title"></strong><span data-i18n="ch.rule5"></span></li>
+          <li><strong data-i18n="ch.rule6Title"></strong><span data-i18n="ch.rule6"></span></li>
+        </ol>
+
+        <p class="c-safety" data-i18n="ch.safety"></p>
+      </details>
+    </section>
+
+    <!-- ============ البوابة: تحميل / قفل / بدون عضوية ============ -->
+    <div class="c-wrap c-gate">
+      <p class="c-status" id="c-status" aria-live="polite" data-i18n="ch.loading">جارٍ التحميل…</p>
+      <button type="button" class="btn-secondary" id="c-retry" data-i18n="ch.retry" hidden>إعادة المحاولة</button>
+
+      <section class="c-lock" id="c-lock" hidden>
+        <svg class="c-lock-icon" viewBox="0 0 64 64" width="84" height="84" aria-hidden="true" focusable="false">
+          <circle class="lock-ring" cx="32" cy="32" r="30" stroke-width="2"/>
+          <path class="lock-shackle" d="M24.5 30v-5.5a7.5 7.5 0 0 1 15 0V30" fill="none" stroke-width="3.5" stroke-linecap="round"/>
+          <rect class="lock-body" x="19" y="29" width="26" height="19" rx="4.5"/>
+          <circle class="lock-keyhole" cx="32" cy="37.5" r="2.6"/>
+          <rect class="lock-keyhole" x="30.8" y="38" width="2.4" height="5" rx="1.2"/>
+        </svg>
+        <h2 data-i18n="ch.lockedTitle">التحدي حصري للعضوات</h2>
+        <p data-i18n="ch.lockedText">سجّلي دخولكِ للمشاركة في التحدي.</p>
+        <a class="btn-primary" href="login.html?next=challenge.html" data-i18n="nav.login">تسجيل الدخول</a>
+      </section>
+
+      <section class="c-lock" id="c-nomember" hidden>
+        <svg class="c-lock-icon" viewBox="0 0 64 64" width="84" height="84" aria-hidden="true" focusable="false">
+          <circle class="lock-ring" cx="32" cy="32" r="30" stroke-width="2"/>
+          <path class="lock-shackle" d="M24.5 30v-5.5a7.5 7.5 0 0 1 15 0V30" fill="none" stroke-width="3.5" stroke-linecap="round"/>
+          <rect class="lock-body" x="19" y="29" width="26" height="19" rx="4.5"/>
+          <circle class="lock-keyhole" cx="32" cy="37.5" r="2.6"/>
+          <rect class="lock-keyhole" x="30.8" y="38" width="2.4" height="5" rx="1.2"/>
+        </svg>
+        <h2 data-i18n="ch.noMemberTitle">لا توجد عضوية مرتبطة بحسابكِ</h2>
+        <p data-i18n="ch.noMemberText">يرجى التواصل مع النادي لتفعيل عضويتكِ.</p>
+      </section>
+    </div>
+
+    <!-- ============ التطبيق (للعضوات): يُبنى بالجافاسكربت ============ -->
+    <div class="c-wrap c-app" id="c-app" hidden>
+      <div class="c-grid">
+
+        <!-- العمود الجانبي: تقدّمي (وعلى الجوال يظهر أولاً) -->
+        <aside class="c-side">
+          <section class="c-card c-progress" id="c-progress" aria-labelledby="c-progress-title"></section>
+        </aside>
+
+        <!-- العمود الرئيسي: اختيار الجلسة -->
+        <div class="c-mainCol">
+          <section class="c-card c-picker" id="c-picker" aria-labelledby="c-picker-title"></section>
+          <!-- تسجيل كلاس مع المدربة -->
+          <section class="c-card c-class" id="c-class" hidden></section>
+        </div>
+
+        <!-- لوحة الترتيب -->
+        <section class="c-card c-board" id="c-board" aria-labelledby="c-board-title" hidden></section>
+      </div>
+    </div>
+
+    <!-- شاشة المؤقت (تفتح فوق الصفحة أثناء الجلسة) -->
+    <div class="c-timer" id="c-timer" hidden></div>
+
   </main>
 
   <div id="site-footer"></div>
@@ -25,5 +128,8 @@
   <script src="js/supabaseClient.js" defer></script>
   <script src="js/layout.js" defer></script>
   <script src="js/auth.js" defer></script>
+  <script src="js/challenge.js" defer></script>
+  <script src="js/challenge-timer.js" defer></script>
+  <script src="js/challenge-board.js" defer></script>
 </body>
 </html>

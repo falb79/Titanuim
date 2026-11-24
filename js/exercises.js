@@ -10,6 +10,7 @@
   var lock = document.getElementById('ex-lock');
   var noMember = document.getElementById('ex-nomember');
   var intro = document.getElementById('ex-intro');
+  var notice = document.getElementById('ex-notice');   // التنبيه الصحي: يظهر مع المحتوى فقط
 
   // صورة لكل مجموعة عضلية: assets/exercises/<اسم-المجموعة>.<الامتداد>
   // مثال: assets/exercises/back.jpg  (الأسماء الـ 12 مذكورة في الشرح)
@@ -120,6 +121,7 @@
   /* ---------- شاشة القفل (لغير المسجّل) ---------- */
   function hideContent() {
     intro.hidden = true;
+    notice.hidden = true;
     tabs.hidden = true;
     retryBtn.hidden = true;
     content.textContent = '';
@@ -165,11 +167,13 @@
           return Auth.isMember().then(function (member) {
             if (member === false) { showNoMember(); return; }
             tabs.hidden = false;
+            notice.hidden = false;
             render();
           });
         }
 
         tabs.hidden = false;
+        notice.hidden = false;
         render();
       })
       .catch(function () {

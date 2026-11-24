@@ -1,8 +1,8 @@
 // نصوص واجهة صفحة التغذية. (محتوى الدليل نفسه في قاعدة البيانات، وليس هنا)
 I18N.add('ar', {
   'nutrition.heroTitle': 'دليل التغذية الشامل',
-  'nutrition.heroSlogan': 'غذاء أفضل، نسخة أقوى منك.',
-  'nutrition.heroText': 'التغذية الصحية ليست مجرد وسيلة لخسارة الوزن أو زيادته، بل هي أساس مهم لصحة الجسم والطاقة والأداء الرياضي. يقدم لك هذا الدليل معلومات عملية تساعدك على فهم احتياجات جسمك، وتنظيم وجباتك، وحساب سعراتك، واختيار نظام غذائي يتناسب مع هدفك.',
+  'nutrition.heroSlogan': 'غذاء أفضل، نسخة أقوى منكِ.',
+  'nutrition.heroText': 'التغذية الصحية ليست مجرد وسيلة لخسارة الوزن أو زيادته، بل هي أساس مهم لصحة الجسم والطاقة والأداء الرياضي. يقدّم لكِ هذا الدليل معلومات عملية تساعدكِ على فهم احتياجات جسمكِ، وتنظيم وجباتكِ، وحساب سعراتكِ، واختيار نظام غذائي يتناسب مع هدفكِ.',
 
   'nutrition.navLabel': 'أقسام الصفحة',
   'nutrition.navGoals': 'الأهداف',
@@ -13,15 +13,15 @@ I18N.add('ar', {
   'nutrition.navRefs': 'المراجع',
 
   'nutrition.noticeTitle': 'تنبيه صحي',
-  'nutrition.noticeShort': 'هذا الدليل للتثقيف الغذائي العام للبالغين، وليس خطة شخصية ولا بديلاً عن استشارة أخصائي التغذية.',
-  'nutrition.noticeLink': 'اقرأ التنبيه كاملاً',
+  'nutrition.noticeShort': 'هذا الدليل للتثقيف الغذائي العام للبالغين، وليس خطة شخصية ولا بديلاً عن استشارة أخصائية التغذية.',
+  'nutrition.noticeLink': 'اقرئي التنبيه كاملاً',
 
-  'nutrition.goalsTitle': 'اكتشف طريقك نحو هدفك',
+  'nutrition.goalsTitle': 'اكتشفي طريقكِ نحو هدفكِ',
   'nutrition.goalsText': 'دليل مخصص لكل هدف.',
-  'nutrition.read': 'اقرأ الدليل',
+  'nutrition.read': 'اقرئي الدليل',
 
   'nutrition.guideTitle': 'تصفّح الدليل',
-  'nutrition.guideText': 'مواضيع عملية مرتبة بحسب حاجتك. اضغط على أي بطاقة لقراءتها.',
+  'nutrition.guideText': 'مواضيع عملية مرتبة بحسب حاجتكِ. اضغطي على أي بطاقة لقراءتها.',
   'nutrition.cat.basics': 'الأساسيات',
   'nutrition.cat.goals': 'الأهداف',
   'nutrition.cat.training': 'حول التمرين',
@@ -29,18 +29,21 @@ I18N.add('ar', {
 
   'nutrition.challengeTitle': 'تحدي التغذية لمدة 30 يوماً',
   'nutrition.challengeGoal': 'هدف التحدي: بناء عادات غذائية صحية تدريجياً، دون حميات قاسية أو حرمان.',
-  'nutrition.challengeNote': 'مرجع مكتوب لمتابعتك الشخصية، يمكنك اتباعه بالسرعة التي تناسبك.',
-  'nutrition.challengeMessage': 'رسالة التحدي: النجاح ليس الالتزام المثالي لمدة 30 يوماً، بل بناء عادات تستطيع الاستمرار عليها.',
+  'nutrition.challengeNote': 'مرجع مكتوب لمتابعتكِ الشخصية، يمكنكِ اتباعه بالسرعة التي تناسبكِ.',
+  'nutrition.challengeMessage': 'رسالة التحدي: النجاح ليس الالتزام المثالي لمدة 30 يوماً، بل بناء عادات تستطيعين الاستمرار عليها.',
   'nutrition.daysRange': 'الأيام {a}–{b}',
   'nutrition.dayN': 'يوم {n}',
-  'nutrition.readTopic': 'اقرأ الموضوع',
+  'nutrition.readTopic': 'اقرئي الموضوع',
 
   'nutrition.tipsTitle': 'نصائح ذهبية',
   'nutrition.tipsText': '10 قواعد بسيطة تلخّص كل شيء.',
 
-  'nutrition.bookTitle': 'دليلك في التغذية',
-  'nutrition.bookText': 'كتاب كامل بصيغة PDF لأعضاء النادي.',
+  'nutrition.bookTitle': 'دليلكِ في التغذية',
+  'nutrition.bookText': 'كتاب كامل بصيغة PDF لعضوات النادي.',
   'nutrition.bookSoon': 'قريباً',
+  'nutrition.bookOpen': 'فتح الكتاب (PDF)',
+  'nutrition.bookOpening': 'جارٍ فتح الكتاب…',
+  'nutrition.bookError': 'تعذّر فتح الكتاب. يرجى المحاولة مرة أخرى.',
 
   'nutrition.refsTitle': 'المراجع العلمية',
   'nutrition.refsText': 'المحتوى التعليمي في هذا الدليل مستند إلى مبادئ التغذية الصحية والتغذية الرياضية الواردة في المصادر التالية:',
@@ -55,10 +58,10 @@ I18N.add('ar', {
   'nutrition.loading': 'جارٍ تحميل الدليل…',
   'nutrition.error': 'تعذّر تحميل الدليل. يرجى المحاولة مرة أخرى.',
   'nutrition.retry': 'إعادة المحاولة',
-  'nutrition.lockedTitle': 'المحتوى حصري للأعضاء',
+  'nutrition.lockedTitle': 'المحتوى حصري للعضوات',
   'nutrition.lockedText': 'تسجيل الدخول مطلوب لتصفح دليل التغذية.',
-  'nutrition.noMemberTitle': 'لا توجد عضوية مرتبطة بحسابك',
-  'nutrition.noMemberText': 'يرجى التواصل مع النادي لتفعيل عضويتك.'
+  'nutrition.noMemberTitle': 'لا توجد عضوية مرتبطة بحسابكِ',
+  'nutrition.noMemberText': 'يرجى التواصل مع النادي لتفعيل عضويتكِ.'
 });
 
 I18N.add('en', {
@@ -103,6 +106,9 @@ I18N.add('en', {
   'nutrition.bookTitle': 'Your Nutrition Guide',
   'nutrition.bookText': 'A full PDF book for club members.',
   'nutrition.bookSoon': 'Coming soon',
+  'nutrition.bookOpen': 'Open the book (PDF)',
+  'nutrition.bookOpening': 'Opening the book…',
+  'nutrition.bookError': 'Could not open the book. Please try again.',
 
   'nutrition.refsTitle': 'Scientific references',
   'nutrition.refsText': 'The educational content in this guide is based on healthy nutrition and sports nutrition principles from the following sources:',
