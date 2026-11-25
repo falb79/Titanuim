@@ -8,7 +8,8 @@
      ===================================================================== */
   var IMAGE_DIR = 'assets/nutrition/';   // صور اختيارية: hero.jpg و cutting.jpg و bulking.jpg و maintenance.jpg
   var IMAGE_EXT = 'jpg';
-  var BOOK = { available: false };       // لما يجهز الكتاب نفعّله (الجزء د)
+  var BOOK_BUCKET = 'guides';            // مخزن الكتب الخاص في Supabase Storage
+  var BOOK_LINK_SECONDS = 300;           // مدة صلاحية رابط الكتاب (5 دقائق)
 
   var CATEGORIES = ['basics', 'goals', 'training', 'tools'];
   var GOAL_SLUGS = ['cutting', 'bulking', 'maintenance'];
@@ -76,7 +77,7 @@
     return s;
   }
 
-  var state = { topics: [], weeks: [], days: [], tips: [], refs: [], list: [], idx: -1 };
+  var state = { topics: [], weeks: [], days: [], tips: [], refs: [], books: [], list: [], idx: -1 };
 
   /* =====================================================================
      عارض النص (الصيغة المبسّطة ← عناصر آمنة، بدون innerHTML)
@@ -445,15 +446,63 @@
   function renderBook() {
     var host = $('n-book');
     host.textContent = '';
+    var book = state.books[0];   // أول كتاب منشور (الجدول nutrition_books)
     var card = el('div', 'book-card n-reveal');
     var cover = el('div', 'book-cover'); cover.appendChild(icon('book', 54));
     card.appendChild(cover);
     var box = el('div', 'book-text');
     box.appendChild(el('h2', null, t('nutrition.bookTitle')));
     box.appendChild(el('p', null, t('nutrition.bookText')));
-    if (!BOOK.available) box.appendChild(el('span', 'badge', t('nutrition.bookSoon')));
+
+    if (!book) {
+      box.appendChild(el('span', 'badge', t('nutrition.bookSoon')));
+    } else {
+      var btn = el('button', 'btn-primary book-open');
+      btn.type = 'button';
+      btn.appendChild(icon('book', 20));
+      btn.appendChild(document.createTextNode(' ' + t('nutrition.bookOpen')));
+      var msg = el('p', 'book-msg');
+      msg.hidden = true;
+      msg.setAttribute('role', 'alert');
+      btn.addEventListener('click', function () { openBook(book, btn, msg); });
+      box.appendChild(btn);
+      box.appendChild(msg);
+    }
     card.appendChild(box);
     host.appendChild(card);
+  }
+
+  // يطلب من Supabase رابطاً مؤقتاً للملف (المخزن يعطيه للمشتركات فقط) ويفتحه في تبويب جديد
+  function openBook(book, btn, msg) {
+    // نفتح التبويب فوراً داخل الضغطة، عشان متصفحات الجوال ما تمنعه، ثم نحط فيه الرابط
+    var win = window.open('', '_blank');
+    if (win) { try { win.opener = null; } catch (e) { /* */ } }
+    var label = btn.lastChild;
+    btn.disabled = true;
+    label.textContent = ' ' + t('nutrition.bookOpening');
+    msg.hidden = true;
+
+    sb.storage.from(BOOK_BUCKET).createSignedUrl(book.file_path, BOOK_LINK_SECONDS).then(function (r) {
+      var url = r && r.data && r.data.signedUrl;
+      if (r.error || !url) throw r.error || new Error('no url');
+      if (win && !win.closed) win.location.href = url;
+      else window.location.href = url;              // لو المتصفح منع التبويب الجديد نفتحه في نفس الصفحة
+    }).catch(function () {
+      if (win && !win.closed) win.close();
+      msg.textContent = t('nutrition.bookError');
+      msg.hidden = false;
+    }).then(function () {
+      btn.disabled = false;
+      label.textContent = ' ' + t('nutrition.bookOpen');
+    });
+  }
+
+  // الكتب تنجاب لحالها، فلو صار فيها خطأ ما يتأثر باقي الدليل
+  function loadBooks() {
+    return sb.from('nutrition_books').select('id, sort_order, file_path').order('sort_order')
+      .then(function (r) { state.books = r.error ? [] : (r.data || []); })
+      .catch(function () { state.books = []; })
+      .then(function () { if (!content.hidden) { renderBook(); observeReveal(); } });
   }
 
   function renderRefs() {
@@ -627,6 +676,7 @@
       setStatus(null);
       content.hidden = false;
       renderAll();
+      loadBooks();
     }).catch(function () {
       hideAll();
       setStatus('nutrition.error');

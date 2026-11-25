@@ -24,14 +24,14 @@
         <span class="ex-kicker" data-i18n="club.name">تيتانيوم للياقة</span>
         <h1 data-i18n="ex.heroTitle">مكتبة التمارين</h1>
         <p class="ex-slogan" data-i18n="ex.heroSlogan">حركة صحيحة، نتيجة أقوى.</p>
-        <p class="ex-hero-text" data-i18n="ex.heroText">شروحات مصوّرة لأهم التمارين، مقسّمة حسب العضلة: الجزء العلوي، والجزء السفلي، والإطالات.</p>
+        <p class="ex-hero-text" data-i18n="ex.heroText">أهم التمارين مقسّمة حسب العضلة: الجزء العلوي، والجزء السفلي، والإطالات.</p>
       </div>
     </section>
 
     <div class="ex-wrap ex-body">
 
     <!-- تنبيه صحي: يظهر للعضوات مع المحتوى -->
-    <details class="ex-notice" id="ex-notice" hidden>
+    <!-- <details class="ex-notice" id="ex-notice" hidden>
       <summary>
         <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
         <span class="ex-notice-text">
@@ -48,9 +48,17 @@
         <li data-i18n="ex.notice5"></li>
         <li data-i18n="ex.notice6"></li>
       </ul>
-    </details>
+    </details> -->
 
-    <p id="ex-intro" data-i18n="exercises.text">اختاري القسم، وشاهدي شرح كل تمرين.</p>
+    <div class="ex-notice ex-notice-simple" id="ex-notice" hidden>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+      <p class="ex-notice-text">
+        <strong data-i18n="ex.noticeTitle">تنبيه صحي:</strong>
+        <span data-i18n="ex.noticeShort"></span>
+      </p>
+    </div>
+
+    <p id="ex-intro" data-i18n="exercises.text">اختاري القسم لتصفّح تمارينه.</p>
 
     <!-- لا يوجد أي تمرين داخل هذا الملف. كل المحتوى يُجلب من Supabase بعد تسجيل الدخول. -->
     <div class="ex-tabs" id="ex-tabs" role="tablist" hidden>

@@ -17,7 +17,7 @@
   // لو صورك webp غيّري الامتداد هنا إلى 'webp' (أو 'png')
   var GROUP_IMAGE_DIR = 'assets/exercises/';
   var GROUP_IMAGE_EXT = 'png';
-
+  var SHOW_VIDEOS = false;   // أزرار «شاهدي الشرح»: true = تظهر، false = مخفية
   var state = { section: 'upper', groups: null, exercises: null };
 
   /* ---------- رسالة الحالة (تتغير لغتها لأنها تحمل data-i18n) ---------- */
@@ -84,8 +84,7 @@
           card.appendChild(name);
 
           // نسمح فقط بروابط https (حماية من روابط خبيثة)
-          if (e.video_url && /^https:\/\//.test(e.video_url)) {
-            var a = el('a', 'ex-watch', I18N.t('ex.watch'));
+          if (SHOW_VIDEOS && e.video_url && /^https:\/\//.test(e.video_url)) {            var a = el('a', 'ex-watch', I18N.t('ex.watch'));
             a.href = e.video_url;
             a.target = '_blank';
             a.rel = 'noopener noreferrer';

@@ -258,3 +258,14 @@ main.exs { max-width: none; padding: 0 0 64px; }
 }
 
 .ex-notice-list li::marker { color: #ffcf70; }
+
+/* التنبيه المختصر (سطر واحد بدون قائمة) */
+.ex-notice-simple {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+}
+
+.ex-notice-simple svg { flex: none; margin-block-start: 3px; }
+.ex-notice-simple .ex-notice-text { margin: 0; max-width: none; }

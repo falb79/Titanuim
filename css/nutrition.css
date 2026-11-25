@@ -510,6 +510,10 @@ html[dir="rtl"] .book-cover { border-radius: 14px 8px 8px 14px; }
 
 .book-text h2 { margin: 0 0 6px; font-size: 1.5rem; color: var(--text-strong); }
 .book-text p { margin: 0 0 10px; max-width: 50ch; }
+.book-open { display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: auto; min-height: 48px; margin: 6px 0 0; padding-inline: 22px; }
+.book-open:disabled { opacity: 0.6; cursor: wait; }
+.book-msg { margin: 10px 0 0 !important; padding: 8px 12px; border-radius: 8px; background: rgba(255, 120, 100, 0.12); color: #ffc9bf; font-size: 0.92rem; }
+.book-msg[hidden] { display: none; }
 
 .badge {
   display: inline-block;

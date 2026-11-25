@@ -49,7 +49,7 @@ var dict = {
 
     'home.accessTitle': 'وصول سريع',
     'home.card1Title': 'التمارين',
-    'home.card1Text': 'مكتبة تمارين مصنّفة حسب العضلة مع شرح بالفيديو.',
+    'home.card1Text': 'مكتبة تمارين مصنّفة حسب العضلة، من الجزء العلوي إلى الإطالات.',
     'home.card2Title': 'التغذية',
     'home.card2Text': 'نصائح غذائية وتحدّي 30 يوماً لأكل صحي.',
     'home.card3Title': 'التحدي',
@@ -73,7 +73,7 @@ var dict = {
     'home.bandText': 'أول جلسة لكِ على بُعد خطوة.',
 
     'exercises.title': 'التمارين',
-    'exercises.text': 'اختاري القسم، وشاهدي شرح كل تمرين.',
+    'exercises.text': 'اختاري القسم لتصفّح تمارينه.',
     'ex.tabUpper': 'الجزء العلوي',
     'ex.tabLower': 'الجزء السفلي',
     'ex.tabStretch': 'الإطالات',
@@ -161,7 +161,7 @@ var dict = {
 
     'home.accessTitle': 'Quick access',
     'home.card1Title': 'Exercises',
-    'home.card1Text': 'An exercise library sorted by muscle, with video tutorials.',
+    'home.card1Text': 'An exercise library sorted by muscle, from upper body to stretches.',
     'home.card2Title': 'Nutrition',
     'home.card2Text': 'Nutrition tips and a 30-day healthy eating challenge.',
     'home.card3Title': 'Challenge',
@@ -185,7 +185,7 @@ var dict = {
     'home.bandText': 'Your first session is one step away.',
 
     'exercises.title': 'Exercises',
-    'exercises.text': 'Choose a section and watch a tutorial for each exercise.',
+    'exercises.text': 'Choose a section to browse its exercises.',
     'ex.tabUpper': 'Upper body',
     'ex.tabLower': 'Lower body',
     'ex.tabStretch': 'Stretching',
