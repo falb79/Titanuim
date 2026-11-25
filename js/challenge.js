@@ -89,6 +89,8 @@
     me: null,          // ناتج get_my_challenge
     sessions: [],      // الجلسات التسع
     steps: [],         // كل التمارين
+    coaches: [],       // المدربات (challenge_coaches)
+    classCoach: null,  // المدربة المختارة في نموذج الكلاس
     duration: 15,
     level: 'beginner',
     uid: null,         // رقم الحساب (لحفظ الجلسة الشغالة على هذا الجهاز)
@@ -99,7 +101,7 @@
      رسائل الأخطاء (الدوال في قاعدة البيانات ترجع كلمة مثل week_full)
      ===================================================================== */
   var ERRORS = ['not_member', 'not_started', 'ended', 'week_full', 'bad_session',
-                'too_many', 'too_early', 'expired', 'bad_log', 'bad_names'];
+                'too_many', 'too_early', 'expired', 'bad_log', 'bad_names', 'bad_coach'];
 
   function errorText(err) {
     var m = err && err.message ? String(err.message) : '';
@@ -196,6 +198,49 @@
       msg.textContent = t('ch.state.ended');
     }
     host.appendChild(msg);
+  }
+
+  /* =====================================================================
+     إعلان المدربة الشخصية (تحت «تقدّمكِ»)
+     ===================================================================== */
+  var PROMO_KEY = 'challengePromoHidden';
+  var ICON_CHAT = '<path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/><path d="M9 10h6M9 13.5h4"/>';
+  var ICON_X = '<path d="M6 6l12 12M18 6L6 18"/>';
+
+  function promoHidden() {
+    try { return localStorage.getItem(PROMO_KEY) === '1'; } catch (e) { return false; }
+  }
+
+  function renderPromo() {
+    var host = $('c-promo');
+    host.textContent = '';
+    // رقم الواتساب من رابط النادي في الفوتر (layout.js)، فلو تغيّر هناك يتغيّر هنا
+    var wa = document.querySelector('a[href^="https://wa.me/"]');
+    var num = wa ? (wa.getAttribute('href').match(/wa\.me\/(\d{8,15})/) || [])[1] : null;
+    if (!num || promoHidden()) { host.hidden = true; return; }
+    host.hidden = false;
+
+    var x = el('button', 'c-promo-x');
+    x.type = 'button';
+    x.setAttribute('aria-label', t('ch.promoHide'));
+    x.appendChild(svg(ICON_X, 18));
+    x.addEventListener('click', function () {
+      try { localStorage.setItem(PROMO_KEY, '1'); } catch (e) { /* التخزين غير متاح: يختفي لين تحدّث الصفحة */ }
+      host.hidden = true;
+      var title = $('c-progress-title');
+      if (title) { title.tabIndex = -1; title.focus(); }
+    });
+    host.appendChild(x);
+
+    host.appendChild(el('strong', 'c-promo-title', t('ch.promoTitle')));
+    host.appendChild(el('p', 'c-promo-text', t('ch.promoText')));
+    var a = el('a', 'c-promo-btn');
+    a.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(t('ch.promoMsg'));
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.appendChild(svg(ICON_CHAT, 18));
+    a.appendChild(document.createTextNode(t('ch.promoBtn')));
+    host.appendChild(a);
   }
 
   /* =====================================================================
@@ -390,7 +435,49 @@
       return inp;
     }
 
-    var coach = field('c-coach', 'ch.coachName', null);
+    // المدربة: أزرار اختيار من القائمة (مو كتابة)
+    var coachLabel = el('span', 'c-form-label', t('ch.coachName'));
+    coachLabel.id = 'c-coach-label';
+    form.appendChild(coachLabel);
+    var coachGroup = el('div', 'c-coaches');
+    coachGroup.setAttribute('role', 'radiogroup');
+    coachGroup.setAttribute('aria-labelledby', 'c-coach-label');
+    var coachBtns = [];
+    var locked = me.state !== 'ok';
+    function pickCoach(name, focus) {
+      state.classCoach = name;
+      coachBtns.forEach(function (b) {
+        var on = b.getAttribute('data-name') === name;
+        b.setAttribute('aria-checked', String(on));
+        b.tabIndex = on ? 0 : -1;
+        if (on && focus) b.focus();
+      });
+    }
+    state.coaches.forEach(function (c, i) {
+      var b = el('button', 'c-coach', c['name_' + lang()] || c.name_ar);
+      b.type = 'button';
+      b.setAttribute('role', 'radio');
+      b.setAttribute('data-name', c.name_ar);   // اللي ينحفظ دائماً الاسم العربي
+      var on = state.classCoach === c.name_ar;
+      b.setAttribute('aria-checked', String(on));
+      b.tabIndex = on || (!state.classCoach && i === 0) ? 0 : -1;
+      b.disabled = locked;
+      b.addEventListener('click', function () { pickCoach(c.name_ar, false); });
+      coachBtns.push(b);
+      coachGroup.appendChild(b);
+    });
+    coachGroup.addEventListener('keydown', function (e) {
+      var keys = { ArrowRight: -1, ArrowLeft: 1, ArrowDown: 1, ArrowUp: -1 };
+      if (!(e.key in keys) || !coachBtns.length) return;
+      e.preventDefault();
+      var dir = keys[e.key];
+      if (document.documentElement.dir === 'ltr' && (e.key === 'ArrowRight' || e.key === 'ArrowLeft')) dir = -dir;
+      var idx = state.coaches.findIndex(function (c) { return c.name_ar === state.classCoach; });
+      var next = state.coaches[(idx + dir + state.coaches.length) % state.coaches.length];
+      pickCoach(next.name_ar, true);
+    });
+    form.appendChild(coachGroup);
+
     var cls = field('c-classname', 'ch.className', 'ch.classNameHint');
 
     // التاريخ يتسجل تلقائياً (اليوم)
@@ -415,18 +502,23 @@
     btn.type = 'submit';
     if (me.state !== 'ok') {
       btn.disabled = true;
-      coach.disabled = true;
       cls.disabled = true;
     }
     form.appendChild(btn);
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var a = coach.value.trim(), b = cls.value.trim();
-      if (Array.from(a).length < 2 || Array.from(b).length < 2) {
-        state.classMsg = { ok: false, text: t('ch.err.bad_names') };
+      var a = state.classCoach, b = cls.value.trim();
+      if (!a) {
+        state.classMsg = { ok: false, text: t('ch.err.pick_coach') };
         msg.hidden = false; msg.className = 'c-form-msg is-bad'; msg.textContent = state.classMsg.text;
-        (Array.from(a).length < 2 ? coach : cls).focus();
+        if (coachBtns[0]) coachBtns[0].focus();
+        return;
+      }
+      if (Array.from(b).length < 2) {
+        state.classMsg = { ok: false, text: t('ch.err.bad_class') };
+        msg.hidden = false; msg.className = 'c-form-msg is-bad'; msg.textContent = state.classMsg.text;
+        cls.focus();
         return;
       }
       btn.disabled = true;
@@ -434,6 +526,7 @@
       sb.rpc('challenge_log_class', { p_coach: a, p_class: b }).then(function (r) {
         if (r.error) throw r.error;
         state.classMsg = { ok: true, text: t('ch.classDone') };
+        state.classCoach = null;
         return refresh();
       }).catch(function (err) {
         state.classMsg = { ok: false, text: errorText(err) };
@@ -463,6 +556,7 @@
 
   function renderAll() {
     renderProgress();
+    renderPromo();
     renderPicker();
     renderClass();
   }
@@ -484,7 +578,8 @@
       sb.rpc('get_my_challenge'),
       sb.from('challenge_sessions').select('*').order('id'),
       sb.from('challenge_steps').select('id, session_id, phase, sort_order, name_ar, name_en, video_url, seconds')
-        .order('session_id').order('sort_order')
+        .order('session_id').order('sort_order'),
+      sb.from('challenge_coaches').select('name_ar, name_en, sort_order').order('sort_order')
     ]).then(function (r) {
       var failed = r.map(function (x) { return x.error; }).filter(Boolean)[0];
       if (failed) {
@@ -500,6 +595,7 @@
       state.me = r[0].data;
       state.sessions = r[1].data || [];
       state.steps = r[2].data || [];
+      state.coaches = r[3].data || [];
       setStatus(null);
       app.hidden = false;
       $('c-rules').hidden = false;

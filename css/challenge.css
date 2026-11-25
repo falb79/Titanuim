@@ -628,6 +628,40 @@ main.chal { max-width: none; padding: 0 0 56px; }
   font-size: 0.95rem;
 }
 
+.c-form-label {
+  display: block;
+  margin-block: 14px 6px;
+  font-weight: 600;
+  color: var(--text-strong);
+  font-size: 0.95rem;
+}
+
+.c-coaches {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.c-coach {
+  min-height: 48px;
+  padding: 8px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.c-coach:hover:not(:disabled) { border-color: var(--field-border); }
+.c-coach[aria-checked="true"] { border-color: var(--orange); background: rgba(222, 87, 19, 0.16); color: var(--text-strong); }
+.c-coach:disabled { opacity: 0.55; cursor: not-allowed; }
+
+@media (min-width: 560px) {
+  .c-coaches { grid-template-columns: repeat(4, 1fr); }
+}
+
 .c-form input {
   width: 100%;
   min-height: 48px;
@@ -892,6 +926,58 @@ body.c-no-scroll { overflow: hidden; }
 .c-myrank:hover { background: rgba(222, 87, 19, 0.18); }
 .c-myrank-medal { font-size: 1.2rem; line-height: 1; }
 .c-myrank-go { margin-inline-start: auto; color: var(--orange-text); font-size: 0.85rem; white-space: nowrap; }
+
+/* ---------- إعلان المدربة الشخصية ---------- */
+.c-promo {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  margin-block-start: 16px;
+  padding: 16px;
+  padding-inline-end: 48px;
+  border: 1px solid rgba(222, 87, 19, 0.45);
+  border-radius: var(--radius);
+  background: rgba(222, 87, 19, 0.10);
+}
+
+.c-promo[hidden] { display: none; }
+.c-promo-title { color: var(--text-strong); font-size: 1.02rem; }
+.c-promo-text { max-width: none; margin: 0 !important; font-size: 0.92rem; color: var(--text); }
+
+.c-promo-btn {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-block-start: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--orange);
+  border-radius: 10px;
+  color: var(--orange-text);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.c-promo-btn:hover { background: rgba(222, 87, 19, 0.15); }
+
+.c-promo-x {
+  position: absolute;
+  top: 8px;
+  inset-inline-end: 8px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.c-promo-x:hover { background: rgba(255, 255, 255, 0.08); color: var(--text-strong); }
 
 /* ---------- لوحة الترتيب ---------- */
 .c-board { scroll-margin-top: calc(var(--header-h) + 12px); }

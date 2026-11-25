@@ -12,8 +12,8 @@ I18N.add('ar', {
   'nutrition.navBook': 'الكتاب',
   'nutrition.navRefs': 'المراجع',
 
-  'nutrition.noticeTitle': 'تنبيه صحي',
-  'nutrition.noticeShort': 'هذا الدليل للتثقيف الغذائي العام للبالغين، وليس خطة شخصية ولا بديلاً عن استشارة أخصائية التغذية.',
+  'nutrition.noticeTitle': 'تنبيه',
+  'nutrition.noticeShort': 'هذا الدليل للتثقيف الغذائي العام للبالغين، وليس خطة شخصية ولا بديلاً عن استشارة المدربة أو أخصائية التغذية.',
   'nutrition.noticeLink': 'اقرئي التنبيه كاملاً',
 
   'nutrition.goalsTitle': 'اكتشفي طريقكِ نحو هدفكِ',
@@ -77,8 +77,8 @@ I18N.add('en', {
   'nutrition.navBook': 'Book',
   'nutrition.navRefs': 'References',
 
-  'nutrition.noticeTitle': 'Health notice',
-  'nutrition.noticeShort': "This guide is for general nutrition education for adults. It is not a personal plan or a substitute for a dietitian's advice.",
+  'nutrition.noticeTitle': 'Notice',
+  'nutrition.noticeShort': "This guide is for general nutrition education for adults. It is not a personal plan or a substitute for a coach or dietitian's advice.",
   'nutrition.noticeLink': 'Read the full notice',
 
   'nutrition.goalsTitle': 'Discover your path to your goal',
